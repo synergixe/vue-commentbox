@@ -17,14 +17,16 @@
                 if (this.text !== "") {
                     // Dispatch event to parent components
                     this.$dispatch("new-comment", {
-                        avatar_thumbnail:this.avatar_url_thumb,
-                        author: this.author,
                         text: this.text
                     });
                     
                     // Reset Form
                     this.text = "";
                 }
+            },
+            // Handle when a file is attached
+            onFileAttach(){
+            
             }
         }
     };
