@@ -15,18 +15,21 @@
         props:{
           author:String,
           avatarUrlThumb:String
+          comments:Array
         },
         data () {
             return {
-                comments: [
+                comments: this.comments /*[
                     {avatar_thumbnail:"", author: "Mike", text: "This is a comment"},
                     {avatar_thumbnail:"", author: "Joe", text: "This is another comment"},
-                ]
+                ]*/
             }
         },
         events: {
             // Add new comment
             "new-comment": function(comment) {
+                comments.avatar_thumbnail = this.avatarUrlThumb;
+                comments.author = this.author;
                 this.comments.push(comment);
             }
         }
