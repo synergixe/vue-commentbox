@@ -7,7 +7,10 @@
 
 <script>
     export default {
-        props: ["author", "text"]
+        props: {
+          author:String,
+          text:String
+       }
     };
 </script>
 
