@@ -15,8 +15,8 @@
         data () {
             return {
                 comments: [
-                    {author: "Mike", text: "This is a comment"},
-                    {author: "Joe", text: "This is another comment"},
+                    {avatar_thumbnail:"", author: "Mike", text: "This is a comment"},
+                    {avatar_thumbnail:"", author: "Joe", text: "This is another comment"},
                 ]
             }
         },
