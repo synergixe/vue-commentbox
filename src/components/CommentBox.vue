@@ -3,7 +3,7 @@
     <h1 v-once=""></h1>
     <p v-once=""></p>
     <comment-list :comments="comments"></comment-list>
-    <comment-form :author="author" :avartar-thumbnail="avatarUrlThumb"></comment-form>
+    <comment-form></comment-form>
   </div>
 </template>
 
@@ -28,8 +28,8 @@
         events: {
             // Add new comment
             "new-comment": function(comment) {
-                comments.avatar_thumbnail = this.avatarUrlThumb;
-                comments.author = this.author;
+                comment.avatar_thumbnail = this.avatarUrlThumb;
+                comment.author = this.author;
                 this.comments.push(comment);
             }
         }
