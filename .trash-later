@@ -9,6 +9,15 @@ https://stackoverflow.com/questions/13949059/persisting-the-changes-of-range-obj
 document.execCommand("BackColor", false, 'yellow');
 
 
+<div class="user-status">
+        <span>
+          <svg height="8" width="8">
+            <circle cx="4" cy="4" r="4" stroke="none" stroke-width="0" fill="#69c733" />
+          </svg>
+        </span>
+        <span>ONLINE</span>
+</div>
+
 ESCAPE_KEY      = 27,
 +    ENTER_KEY       = 13,
 +    attrToChange    = 'textContent'
