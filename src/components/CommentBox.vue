@@ -3,7 +3,7 @@
     <h1 v-once=""></h1>
     <p v-once=""></p>
     <comment-list :comments="comments"></comment-list>
-    <comment-form :author="author" :avartar-thumbnail="avatar-url-thumb"></comment-form>
+    <comment-form :author="author" :avartar-thumbnail="avatarUrlThumb"></comment-form>
   </div>
 </template>
 
@@ -19,8 +19,8 @@
         data () {
             return {
                 comments: [
-                    {avatar_url_thumb:"", author: "Mike", text: "This is a comment"},
-                    {avatar_url_thumb:"", author: "Joe", text: "This is another comment"},
+                    {avatar_thumbnail:"", author: "Mike", text: "This is a comment"},
+                    {avatar_thumbnail:"", author: "Joe", text: "This is another comment"},
                 ]
             }
         },
