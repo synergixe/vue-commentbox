@@ -35,7 +35,7 @@
 
                           <div data-block="true" data-editor="comment-text-area">
 
-                                  <div data-offset-slot="*" class="relative" id="comment-text-area-strip">
+                                  <div data-offset-width="1" class="relative" id="comment-text-area-strip">
 
                                       <span data-offset-key="xy-0-0" id="comment-text-area-cursor" v-model="text"><br data-text="true">
                                       </span>
@@ -224,7 +224,7 @@
                             // therefore we have to record cursor position (selection)
                             // so that after vm.$set changes the input
                             // value we can put the cursor back at where it is
-                            this._savedSelection = helper.saveSelection(el);
+                            this._savedSelection = Helpers.saveSelection(el);
 
                             self._set();
                         }
@@ -259,26 +259,16 @@
                         // is reset after update.
                         // See the comment in self.set for additional context
                         if (this._savedSelection) {
-                            utils.selectionHelper.restoreSelection(this.el, this._savedSelection)
+                            Helpers.restoreSelection(this.el, this._savedSelection)
                         }
                     },
 
                     unbind: function () {
-                        var el = this.el
+                        var el = this.el;
                         el.removeEventListener('input', this.onInput)
                         el.removeEventListener('keyup', this.onEsc)
                         el.removeEventListener('keydown', this.onEnter)
                         el.removeEventListener('focus', this.onFocus)
-                    }
-            }
-        },
-        computed:{
-            selectionRangeHTML:{
-                    get(){
-
-                    },
-                    set:(){
-
                     }
             }
         },
