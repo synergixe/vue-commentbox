@@ -19,7 +19,7 @@ An elegant and stylable comment box for VueJS web applications
 
 ```html
 
-   <comment-box :context-placeholder="'Post Something'" :context-author="'Dauda Adeboye'" :context-avatar-thumb="'http://assets.image-base.com/png/passport.jpg'" :box-action="'https://app.example.com/store/comment'" use-xhr="'true'" v-on:beforesend="beforeSend">
+   <comment-box :input-placeholder-text="'Post Something'" :context-author="'Dauda Adeboye'" :context-avatar-thumb="'http://assets.image-base.com/png/passport.jpg'" :box-action="'https://app.example.com/store/comment'" use-xhr="'true'" v-on:beforesend="beforeSend">
    		<div slot="autocomplete">
 			<ul>
 				
@@ -29,10 +29,14 @@ An elegant and stylable comment box for VueJS web applications
    </comment-box>
 ```
 
-# Modify CSS
+## Modify CSS
 
 ```css
-	.comment-body-wrapper{
+	.comment-body-wrapper {
 		padding:20px; /* make the comment box smaller in size - customization */
 	}
 ```
+
+## License
+
+MIT
