@@ -1,4 +1,9 @@
 function addFormDataPolyfill(){ 
+	
+		/**
+		 * This code is based on the code from Jimmy Warting 
+		 * @ https://github.com/jimmywarting/FormData
+		 */
 
 		if (typeof FormData === 'undefined' || !FormData.prototype.keys) {
 
