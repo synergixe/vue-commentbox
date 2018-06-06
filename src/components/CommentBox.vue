@@ -36,9 +36,9 @@
         },
         events: {
             // Add new comment
-            "new-comment": function(comment) {
+            "new-comment": (comment) => {
                 comment.avatar_thumbnail = this.conetxtAvatarThumb;
-                comment.author = this.contexAuthor;
+                comment.author = this.contextAuthor;
 
                 this.currentComment = this.vm.$emit('new-comment-dispatch', comment);
 
