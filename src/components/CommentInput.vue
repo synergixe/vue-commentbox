@@ -288,7 +288,7 @@
                 if (this.text !== "") {
                     // Dispatch event to parent components
                     this.$dispatch("new-comment", {
-                        text: this.text
+                        text: (Helpers.textRangeToHTML() || this.text)
                     });
                     
                     this.vm.$emit('send', event);
