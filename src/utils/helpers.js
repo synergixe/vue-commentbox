@@ -3,9 +3,9 @@ var Helpers = {
 	/**
 	 *
 	 *
-	 *
-	 *
-	 *
+	 * @param HTMLElement | Element - start
+	 * @param HTMLElement | Element - end
+	 * @returns HTMLElement | Element | Undefined - parent
 	 *
 	 */
 	getCommonAncestor(start, end){
@@ -32,46 +32,46 @@ var Helpers = {
 			parent = queue.unshift();
 
 		}while(parent);
-
-		return null;
 	},
 	/**
 	 *
 	 *
 	 *
-	 *
-	 *
+	 * @param HTMLElement | Element - start
+	 * @param HTMLElement | Element - end
+	 * @param HTMLElement | Element | Undefined - commonAncestor
+	 * @returns Array
 	 *
 	 */
 	getElementsBetweenTree(start, end, commonAncestor) {
     
-    	var ancestor = (commonAncestor || this.getCommonAncestor(start, end)), 
-    		before = [], after= [];
+		   var ancestor = (commonAncestor || this.getCommonAncestor(start, end)), 
+    			before = [], after= [];
 
-	    while (start.parentNode !== ancestor){
+		    while (start.parentNode !== ancestor){
 
-	        var el = start;
+			var el = start;
 
-	        while (el.nextSibling)
-	            before.push(el = el.nextSibling);
-	        start = start.parentNode;
-	    }
+			while (el.nextSibling)
+			    before.push(el = el.nextSibling);
+			start = start.parentNode;
+		    }
 
-	    while (end.parentNode !== ancestor){
+		    while (end.parentNode !== ancestor){
 
-	        var el = end;
+			var el = end;
 
-	        while (el.previousSibling)
-	            after.push(el= el.previousSibling);
-	        end = end.parentNode;
-	    }
+			while (el.previousSibling)
+			    after.push(el= el.previousSibling);
+			end = end.parentNode;
+		    }
 
-	    after.reverse();
+		    after.reverse();
 
-	    while ((start= start.nextSibling)!==end)
-	        before.push(start);
+		    while ((start= start.nextSibling)!==end)
+			before.push(start);
 
-	    return before.concat(after);
+		    return before.concat(after);
 	},
 	/**
 	 *
@@ -94,7 +94,7 @@ var Helpers = {
 	 *
 	 *
 	 *
-	 * @params void
+	 * @param void
 	 * @returns String - html :
 	 *
 	 */
@@ -114,8 +114,8 @@ var Helpers = {
 	 *
 	 *
 	 *
-	 * @params HTMLElement | Element - watcher :
-	 * @params Object : [ position; Number, length; Number ]
+	 * @param HTMLElement | Element - watcher :
+	 * @param Object : [ position; Number, length; Number ]
 	 * @returns Undefined
 	 *
 	 */
