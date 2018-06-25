@@ -4,9 +4,9 @@ var webpack = require('webpack');
 module.exports = {
 	entry:{
 		"comment-box":"./src/components/CommentBox.vue",
-		"extensions":[
-			"./src/lib/",
-			"./src/lib/"
+		"exts":[
+			"./src/utils/helpers.js",
+			"./src/utils/ajax.js"
 		]
 	},
 	output:{
