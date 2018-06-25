@@ -1,11 +1,12 @@
 {
   "presets": [
-      "env":{
-          "target":{
-                "browser":["latest"],
-                "uglify":false
+      ["env", {
+          "targets": {
+              "browsers":["chrome", "firefox", "opera"],
+              "uglify":false,
+              "modules":false
           }
-      }
+      }]
   ],
   "comments": false
 }
