@@ -2,7 +2,12 @@
   "presets": [
       ["env", {
           "targets": {
-              "browsers":["chrome", "firefox", "opera"],
+              "browsers":[
+                  "> 0.25%",
+                  "last 8 versions",
+                  "not ie <= 8",
+                  "not op_mini all"
+              ],
               "uglify":false,
               "modules":false
           }
