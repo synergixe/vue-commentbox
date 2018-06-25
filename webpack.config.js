@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+	mode: process.env.NODE_ENV,
 	entry:{
 		"comment-box":"./src/components/CommentBox.vue",
 		/*"exts":[
