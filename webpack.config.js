@@ -4,10 +4,10 @@ var webpack = require('webpack');
 module.exports = {
 	entry:{
 		"comment-box":"./src/components/CommentBox.vue",
-		"exts":[
+		/*"exts":[
 			"./src/utils/helpers.js",
 			"./src/utils/ajax.js"
-		]
+		]*/
 	},
 	output:{
 		path: path.resolve(__dirname, './dist'),
@@ -49,11 +49,12 @@ module.exports = {
 		]
 	},
 	devServer: {
-	  historyApiFallback: true,
-	  noInfo: true
+	  	historyApiFallback: true,
+	  	noInfo: true,
+		overlay:true
 	},
 	performance: {
-	  hints: false
+	  	hints: false
 	},
 	devtool: '#eval-source-map'
 };
@@ -67,7 +68,11 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   // Add these plugins:
   module.exports.plugins = (module.exports.plugins || []).concat([
-
+	new webpack.DefinePlugin({
+	      'process.env': {
+		NODE_ENV: '"production"'
+	      }
+	}),
     // Crumples your bundled source code into a tiny little ball.
     // (Minifies it.)
     new webpack.optimize.UglifyJsPlugin({
