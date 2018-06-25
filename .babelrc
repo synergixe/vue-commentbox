@@ -1,9 +1,11 @@
 {
   "presets": [
-      ["latest", {
-          "es2015": { "modules": false }
-      }]
+      "env":{
+          "target":{
+                "browser":["latest"],
+                "uglify":false
+          }
+      }
   ],
-  "plugins": ["transform-runtime"],
   "comments": false
 }
