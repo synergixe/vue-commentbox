@@ -1,5 +1,233 @@
 
-var Helpers = {
+var 	REGIONAL_INDICATOR_A = parseInt("1f1e6", 16),
+    	REGIONAL_INDICATOR_Z = parseInt("1f1ff", 16),
+   	IMAGE_HOST = "assets.github.com",
+      	IMAGE_PATH = "/images/icons/emoji/unicode/",
+	IMAGE_EXT = ".png",
+    	EMOJI_DATA = {
+		'smile':{
+			code:0x1F604,
+			image:null
+		},
+		'grin':{
+			code:0x1F601,
+			image:null
+		},
+		'happy-surprise':{
+			code:0x1F603,
+			image:null
+		},
+		'happy-tears':{
+			code:0x1F602,
+			image:null
+		},
+		'kiss':{
+			code:0x1F618,
+			image:null
+		},
+		'cold-sweat':{
+			code:0x1F613,
+			image:null
+		},
+		'pensive':{
+			code:0x1F614,
+			image:null
+		},
+		'unamused':{
+			code:0x1F612,
+			image:null
+		},
+		'smirking':{
+			code:0x1F60F,
+			image:null
+		},
+		'winking':{
+			code:0x1F609,
+			image:null
+		},
+		'relieved':{
+			code:0x1F60C,
+			image:null
+		},
+		'dizzy':{
+			code:0x1F635,
+			image:null
+		},
+		'flushed':{
+			code:0x1F633,
+			image:null
+		},
+		'crying':{
+			code:0x1F622,
+			image:null
+		},
+		'sacarstic':{
+			code:0x1F61C,
+			image:null
+		},
+		'happy-excited':{
+			code:0x1F606,
+			image:null
+		},
+		'tired':{
+			code:0x1F62B,
+			image:null
+		},
+		'confident':{
+			code:0x1F624,
+			image:null
+		},
+		'angry':{
+			code:0x1F620,
+			image:null,
+		},
+		'victory-hand':{
+			code:0x270C,
+			image:null
+		},
+		'raised-hand':{
+			code:0x270B,
+			image:null
+		},
+		'raised-fist':{
+			code:0x270A,
+			image:null
+		}
+	},
+Helpers = {
+	/**
+	 *
+	 * @param void
+	 * @returns boolean
+	 *
+	 * Modified from https://gist.github.com/mwunsch/4710561
+   	 * and probobly originally github's javascript source
+	 *
+	 * @See: https://gist.github.com/mathisonian/7885295
+	 */
+	doesSupportEmoji(){
+		let context, smiley;
+		if(!document.createElement('canvas').getContext) return false;
+		context = document.createElement('canvas').getContext('2d');
+		if(typeof context.fillText != 'function') return false;
+		smiley = smile = String.fromCodePoint(EMOJI_DATA['smile'].code); // String.fromCharCode(55357) + String.fromCharCode(56835)
+		
+		context.textBaseline = "top";
+		context.font = "32px Arial";
+		context.fillText(smiley, 0, 0);
+		return (context.getImageData(16, 16, 1, 1).data[0] !== 0);
+	},
+	/**
+	 *
+	 *
+	 * @param Number ? hexadcimal - hex :
+	 * @return ImageHTMLElement - img :
+	 *
+	 */
+	getImageForCodepoint(hex) {
+    		let img = document.createElement('IMG'), 
+		    canvas = null,
+		    context = null;
+
+    		img.style.width = "1.4em";
+    		img.style.verticalAlign = "top";
+		
+		if(!this.doesSupportEmoji()){
+    			img.src = "//" + IMAGE_HOST + IMAGE_PATH + (hex.toString(16)) + IMAGE_EXT;
+		}else{
+			canvas = document.createElement('canvas');
+			canvas.width = "16";
+			canvas.height = "16";
+			context = canvas.getContext('2d');
+			context.textBaseline = "top";
+			context.font = "32px Arial";
+			context.fillText(String.fromCodePoint(hex), 0, 0);
+			img.src = canvas.toDataURL('image/png');
+		}
+
+    		return img;
+	},
+	/**
+	 *
+	 * @param Element | HTMLElement - ancestor
+	 * @return void
+	 *
+	 */
+	replaceAllEmojiInAncestor(ancestor) {
+	    var nodes = Helpers.getAllTextNodes(ancestor),
+		PATTERN = /([\ud800-\udbff])([\udc00-\udfff])/g;
+
+	    nodes.forEach(function (node) {
+	      var replacement,
+		  value = node.nodeValue,
+		  matches = value.match(PATTERN);
+
+	      if (matches) {
+		replacement = value.replace(PATTERN, function (match, p1, p2) {
+		  var codepoint = Helpers.surrogatePairToCodepoint(p1.charCodeAt(0), p2.charCodeAt(0)),
+		      img = Helpers.getImageForCodepoint(codepoint);
+		  	return Helpers.convertDOMToHTML(img);
+		});
+
+		node.parentNode.replaceChild(Helpers.createAsFragment(replacement), node);
+	      }
+	    });
+	},
+	/**
+	 *
+	 *
+	 * @param String - emojiName
+	 * @returns ImageHTMLElement
+	 *
+	 */
+	createEmojiAsImageFromName(emojiName){
+		var emoji = EMOJI_DATA[emojiName],
+		    image = null;
+		
+		if(emoji.image === null){
+			image = Helpers.getImageForCodepoint(emoji.code);
+			emoji.image = image;
+		}
+			
+		return emoji.image.cloneNode(true); // don't return a DOM Node reference;
+	},
+	/**
+	 *
+	 * @param String ? char - lead
+	 * @param String ? char - trial
+	 * @returns String ? char
+	 *
+	 */
+	surrogatePairToCodepoint(lead, trail) {
+    		return (lead - 0xD800) * 0x400 + (trail - 0xDC00) + 0x10000;
+	},
+	/**
+	 *
+	 * @param Element | HTMLElement - element
+	 * @return Array - textNodes :
+	 * 
+	 * @See: https://gist.github.com/mwunsch/4693383
+	 */
+	getAllTextNodes(element) {
+		    if (!document.createTreeWalker) return [];
+
+		    var blacklist = ['SCRIPT', 'OPTION', 'TEXTAREA', 'STYLE', 'IFRAME', 'INPUT'],
+			textNodes = [],
+			walker = document.createTreeWalker(
+			    element,
+			    NodeFilter.SHOW_TEXT,
+			    function excludeBlacklistedNodes(node) {
+			      if (blacklist.indexOf(node.parentElement.nodeName.toUpperCase()) >= 0) return NodeFilter.FILTER_REJECT;
+			      if (String.prototype.trim && !node.nodeValue.trim().length) return NodeFilter.FILTER_SKIP;
+			      return NodeFilter.FILTER_ACCEPT;
+			    },
+			    false
+			);
+
+		    while(walker.nextNode()) textNodes.push(walker.currentNode);
+
+		    return textNodes;
+	},
 	/**
 	 *
 	 *
@@ -119,7 +347,7 @@ var Helpers = {
 	 * @returns Undefined
 	 *
 	 */
-	selectAllTextByOffset(watcher, {position, length}){
+	selectAllTextByOffset(watcher, {position, length = 0} = {}){
 
 		var node = this.convertHTMLToDOM(watcher.innerHTML),
 			selectionOffsetAnchors = [
@@ -138,7 +366,9 @@ var Helpers = {
 			watcher.innerHTML = this.convertDOMToHTML(
 									this.setAnchorsAtOffsetOnFragment(
 										node, 
-										movingOffset, 
+										movingOffset,
+										position,
+										length,
 										frag, 
 										selectionOffsetAnchors
 									)
@@ -199,19 +429,23 @@ var Helpers = {
 	 *
 	 * @param HTMLElement | Element - node :
 	 * @param Number - movingOffset
+	 * @param Number - postion
+	 * @param Number - length
 	 * @param DocumentFragment - frag
 	 * @param Array - selectionOffsetAnchors
 	 * @returns DocumentFragment - frag
 	 *
 	 */
-	setAnchorsAtOffsetOnFragment(node, movingOffset, frag, selectionOffsetAnchors){
+	setAnchorsAtOffsetOnFragment(node, movingOffset, position, length, frag, selectionOffsetAnchors){
 
 		var child = null, 
 			children = ([]).slice.call(node.childNodes), 
 			text = '',
 			_child = null,
 			_next = null,
-			_delta = null;
+			_delta = null,
+		    	delta = null,
+		    	step = null;
 
 		while(children.length != 0) {
 			
@@ -439,7 +673,7 @@ var Helpers = {
 	 */
 	getCurrentTextRange(event){
 
-		var range = null;
+		var range = null, eOrigin;
 
 		if(event 
 				&& typeof event.type !== 'string'
@@ -552,15 +786,16 @@ var Helpers = {
 	insertNodeAtCursor(node) {
 	    var sel, range, html;
 
-	    if(tyepof node === 'string'){
-	    	node = document.createTextNode(node);
+	    if(tyepof node === 'string'
+	      	&& !(/\<(?:[>]+)\/?\>/g.test(node))){ // make sure it's not a HTML string
+	    		node = document.createTextNode(node);
 	    }
 
-	    html = (node.nodeType == 3) ? node.data : node.outerHTML;
+	    html = (node.nodeType == 3) ? node.data : Helpers.convertDOMToHTML(node);
 
 	    if (window.getSelection) {
 	        sel = window.getSelection();
-	        if (sel && sel.getRangeAt && sel.rangeCount) {
+	        if (sel && sel.getRangeAt && (sel.rangeCount !== 0)) {
 	            sel.getRangeAt(0).insertNode(node);
 	            return;
 	        }
