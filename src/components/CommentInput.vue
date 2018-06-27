@@ -75,15 +75,17 @@
                 <a class="line-block-box pull-left relative comment-icon comment-icon-file" href="javascript:void(0);" title="Attach a File, Photo or Video"  data-hover="tooltip">
 
                      <input type="file" accept="video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/png, image/jpg, image/jpeg, image/gif, application/pdf, application/zip" class="hidden" name="file"><!-- IE 9 doesn't support ` multiple="multiple"` attribute for file inputs so we can't add it for now -->
-
+                     <icon href="attachment"></icon>
                 </a>
 
                 <a class="line-block-box pull-left relative comment-icon comment-icon-link" href="javascript:void(0);" title="Insert a Link"  data-hover="tooltip">
-                      <input type="hidden" name="links" value="{}" class="">
+                      <input type="hidden" name="links" value="{}" class="hidden">
+                      <icon href="link"></icon>
                 </a>
 
                 <a class="line-block-box pull-left relative comment-icon comment-icon-emoji" href="javascript:void(0);" title="Insert an Emoji"  data-hover="tooltip">
-                      <input type="hidden" name="emojis" value="{'happy':':D', 'sad':':C'}" class="">
+                      <input type="hidden" name="emojis" value="{'happy':':D', 'sad':':(', 'angry':':{', 'silly':':Q'}" class="hidden">
+                      <icon href="emoji"></icon>
                 </a>
 
 
@@ -103,17 +105,20 @@
 </div>
 </div>
    </div>
-
-       <iframe :src="'about:blank'" :name="'comment-box-sink'" :id="'comment-box-sink'" class="absolute" :marginheight="'0'" :marginwidth="'0'" :scrolling="'no'" :height="'0'" :width="'0'" :allowtransperency="'true'" :frameborder="'0'"></iframe>
    </div>
 </template>
 
 <script>
-    import Helpers from '@/utils/helpers'
+    import * as Helpers from '@/utils/helpers'
+    import CommentBoxIcon from "./CommnetBoxIcon.vue"
 
     export default {
+        components: { CommentBoxIcon }
         props:{
-            textPlaceholder:String,
+            textPlaceholder:{
+                    type:String,
+                    required:true
+            },
             cAuthor:String,
             cAvatarThumb:String
         },
@@ -145,12 +150,12 @@
                             attrToChange    = 'textContent';
 
                         // Make the content editable
-                        if(('chrome' in window) 
+                        /*if(('chrome' in window) 
                             && ('WebkitAppearance' in document.documentElement.style)){
                             el.setAttribute('contenteditable', 'plaintext-only'); // Chrome [ Webkit / Blink ] - ONLY   
-                        }else{
+                        }else{*/
                             el.setAttribute('contenteditable', true); // other browsers
-                        }
+                        /*}*/
 
                         // On escape, reset to the initial value and deselect (blur)
                         self.onEsc = function(e) {
