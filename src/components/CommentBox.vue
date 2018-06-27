@@ -29,6 +29,7 @@
     import CommentInput from "./CommentInput.vue";
 
     export default {
+        name: 'comment-box',
         components: { CommentList, CommentInput },
         props:{
           iconFillColor:{
