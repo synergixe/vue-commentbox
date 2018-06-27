@@ -6,7 +6,7 @@ An elegant and stylable comment box for VueJS web applications
 
 - IE9+
 - Opera 10.5+
-- Firefox 12.0+
+- Firefox 3.5+
 - Chrome 4.0+
 - Edge 13+
 
@@ -22,10 +22,9 @@ An elegant and stylable comment box for VueJS web applications
    <comment-box :input-placeholder-text="'Post Something'" :context-author="'Dauda Adeboye'" :context-avatar-thumb="'http://assets.image-base.com/png/passport.jpg'" :box-action="'https://app.example.com/store/comment'" use-xhr="'true'" v-on:beforesend="beforeSend">
    		<div slot="autocomplete">
 			<ul>
-				
+				<li></li>
 			</ul>
 		</div>
-   		<div slot="link"></div>
    </comment-box>
 ```
 
