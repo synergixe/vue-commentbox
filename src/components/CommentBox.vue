@@ -5,7 +5,7 @@
             <comment-list :comments="comments"></comment-list>
             <comment-input v-on:send="onFormSend" :text-placeholder="inputPlaceholderText" :c-author="contextAuthor" :c-avatar-thumb="contextAvatarThumb"></comment-input>
         </fieldset>
-        <iframe :allowtransparency="'true'" src="about:blank" :name="'comment-box-sink'" :id="'comment-box-sink'" :frameborder="'0'" :scrolling="'no'"></iframe>
+        <iframe :src="'about:blank'" :name="'comment-box-sink'" :id="'comment-box-sink'" class="absolute" :marginheight="'0'" :marginwidth="'0'" :scrolling="'no'" :height="'0'" :width="'0'" :allowtransperency="'true'" :frameborder="'0'"></iframe>
       </form>
       <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
             <symbol id="link" viewBox="0 0 18 18">
