@@ -6,7 +6,7 @@ An elegant and stylable comment box for VueJS web applications
 
 - IE9+
 - Opera 10.5+
-- Firefox 3.5+
+- Firefox 12.0+
 - Chrome 4.0+
 - Edge 13+
 
