@@ -72,19 +72,19 @@
 
                                            <div class="line-block-box clearfix relative comment-taskbar" id="comment-taskbar">
 
-                <a class="line-block-box pull-left relative comment-icon comment-icon-file" href="javascript:void(0);" title="Attach a File, Photo or Video"  data-hover="tooltip">
+                <a class="line-block-box pull-left relative comment-icon comment-icon-file" href="javascript:void(0);" title="Attach a File, Photo or Video"  data-hover="tooltip" data-tooltip="#attach-file">
 
-                     <input type="file" accept="video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/png, image/jpg, image/jpeg, image/gif, application/pdf, application/zip" class="hidden" name="file"><!-- IE 9 doesn't support ` multiple="multiple"` attribute for file inputs so we can't add it for now -->
+                     <input type="file" ref="attachment" value="" accept="video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/png, image/jpg, image/jpeg, image/gif, application/pdf, application/zip" class="hidden" name="file"><!-- IE 9 doesn't support ` multiple="multiple"` attribute for file inputs so we can't add it for now -->
                      <icon href="attachment"></icon>
                 </a>
 
-                <a class="line-block-box pull-left relative comment-icon comment-icon-link" href="javascript:void(0);" title="Insert a Link"  data-hover="tooltip">
+                <a class="line-block-box pull-left relative comment-icon comment-icon-link" href="javascript:void(0);" title="Insert a Link"  data-hover="tooltip" data-tooltip="#attach-link">
                       <input type="hidden" name="links" value="{}" class="hidden">
                       <icon href="link"></icon>
                 </a>
 
-                <a class="line-block-box pull-left relative comment-icon comment-icon-emoji" href="javascript:void(0);" title="Insert an Emoji"  data-hover="tooltip">
-                      <input type="hidden" name="emojis" value="{'happy':':D', 'sad':':(', 'angry':':{', 'silly':':Q'}" class="hidden">
+                <a class="line-block-box pull-left relative comment-icon comment-icon-emoji" href="javascript:void(0);" title="Insert an Emoji"  data-hover="tooltip" data-tooltip="#attach-emoji">
+                      <input type="hidden" name="emojis" value="{'happy-surprised':'em-svg em-1f604', 'sad':'em-svg em-1f6', 'angry':'em-svg em-1f620', 'victory-hand':'em-svg em-270C'}" class="hidden">
                       <icon href="emoji"></icon>
                 </a>
 
@@ -105,6 +105,18 @@
 </div>
 </div>
    </div>
+        <section id="attach-file" class="absolute" role="dropup-menu" aria-target="[]">
+        
+            <span role="arrow"></span>
+        </section>
+        <section id="attach-link" class="absolute" role="dropup-menu" aria-target="[]">
+        
+            <span role="arrow"></span>
+        </section>
+        <section id="attach-emoji" class="absolute" role="dropup-menu" aria-target="[]">
+        
+            <span role="arrow"></span>
+        </section>
    </div>
 </template>
 
@@ -293,11 +305,27 @@
                 }
             },
             // Handle when a file is attached
-            onFileAttach(){
-            
+            onFileAttach(e){
+                    console.log(e.target.files);
             },
-            onLinkCreate(){
+            onLinkCreate(e){
+                var href = window.prompt('Enter the web address for the link', '');
+                
+                if(href !== ''){
+                    Helpers.insertNodeAtCursor(
+                        Helpers.convertDOMToHTML(
+                            '<a class="link-text" href="' + href + '">'
+                            + href + '</a>'
+                        )
+                    );
+                }
+            },
+            onEmojiSelect(e){
+                let emoji = Helpers.createEmojiAsImageFromName(
+                        e.target.attributes.getNamedItem('data-emoji-name')
+                    );
 
+                Helpers.insertNodeAtCursor(emoji);
             }
         }
     };
@@ -417,5 +445,16 @@
 iframe[name="comment-box-sink"]{
     left:-9999px;
     top:0;
+}
+
+section[role="dropup-menu"] span[role="arrow"]{
+    /* triangle CSS */
+}
+
+section[role="dropup-menu"]{
+    z-index:300;
+    width:120px;
+    height:180px;
+    background-color:white;
 }
 </style>
