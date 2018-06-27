@@ -23,8 +23,10 @@
 </template>
 
 <script>
-    import * as Ajax from "@/utils/ajax";
-
+    import * as Ajax from "@/utils/ajax"
+    
+    import EmojiCSS from  'https://afeld.github.io/emoji-css/emoji.css'
+    
     import CommentList from "./CommentList.vue";
     import CommentInput from "./CommentInput.vue";
 
