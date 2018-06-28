@@ -16,24 +16,3 @@
       return chars.join("");
     }
 }
-
-if(document.createTreeWalker){
-  /*!
-   *
-   *
-   *
-   *
-   */
-  var IE_9_11 = (!!window.MSInputMethodContext || !!window.MStream) && (document.documentMode >= 9),
-  
-  var _createTreeWalker = HTMLDocument.prototype.createTreeWalker;
-  
-  var FF_3_11 = (false);
-  
-  if((IE_9_11 || FF_3_11) && document.createNodeIterator){
-        document.createTreeWalker = function(rootNode, whatToShow, filter, enityRefExpansion){
-
-              return document.createNodeIterator(rootNode, whatToShow, filter, enityRefExpansion);
-        };
-  }
-}
