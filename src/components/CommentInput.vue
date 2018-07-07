@@ -161,7 +161,8 @@
                             ESCAPE_KEY      = 27,
                             ENTER_KEY       = 13,
                             BACK_SPACE      = 8,
-                                            = 40,
+                            DOWN_ARROW_KEY  = 40,
+                            RIGHT_ARROW_KEY = 39,
                             attrToChange    = 'textContent';
 
                         // Make the content editable
@@ -181,7 +182,21 @@
                             }
                         }
                         
-                        self.
+                        self.onBlur = function(e){
+                        
+                             console.log("blurred! "+ e.target.className);
+
+                             var placeholder = document.querySelector('#commentbox-placeholder');
+                             var text_input = e.target.querySelector('#comment-text-area-cursor');
+                             var text = (text_input.innerText)
+                                        ? text_input.innerText 
+                                        : text_input.textContent;
+
+                             if(text_input 
+                                    && text.match(/^(?:[\s]*)$/)){
+                                  placeholder.style.display = "block";
+                             }
+                        };
 
                         self.onPaste = function(e){
                                  console.log("pasted!");
@@ -206,18 +221,20 @@
 
                         el.addEventListener('keyup', this.onEsc);
                         
+                        el.addEventListener('blur', this.onBlur);
+                        
                         self.onMouseIn = function(e){
                         
                               console.log("cursor probably moved!");
                               
-                              var watcher = document.querySelector('#comment-text-area-cursor');
+                              var watcher = e.target.querySelector('#comment-text-area-cursor');
                               var watcherLineHeight = 16;
                               var numOfLines = Math.floor((watcher.offsetHeight + 2) / watcherLineHeight);
                               var rect = watcher.parentNode.getBoundingClientRect();
                               
                               // move @-mention dropdown as the cursor <span> element goes along
-                              var mentionDropDown = document.querySelector('#comment-text-area-mention-box');
-                              var xy = Helpers.getSelectionCaretChoords(e, watcher);
+                              var mentionDropDown = e.target.querySelector('#comment-text-area-mention-box');
+                              var xy = Helpers.getSelectionCursorChoords(e, watcher);
                               var _xy = {x : rect.left, y : rect.top};
 
                              if(e.target.innerHTML.length == 0){
@@ -243,15 +260,28 @@
                         el.addEventListener('keydown', this.onKeys);
 
                         // On focus, store the initial value so it can be reset on escape
-                        self.onFocus = function() {
-                            self.initialValue = el[attrToChange]
-                        }
+                        self.onFocus = function(e) {
+                        
+                            self.initialValue = el[attrToChange];
+                            
+                                 console.log("focused! "+ e.target.className);
+                            
+                                 var placeholder = document.querySelector('#commentbox-placeholder');
+                                 var watcher = e.target.querySelector('#comment-text-area-cursor');
+
+
+
+                                 if((window.getComputedStyle(placeholder, "").getPropertyValue('display')) == "block"){
+                                      placeholder.style.display = "none";
+                                 }
+                            
+                        };
                         
                         self.onCut = function(e){
                         
                              console.log("deleted!");
 
-                             var watcher = document.querySelector('#comment-text-area-cursor');
+                             var watcher = e.target.querySelector('#comment-text-area-cursor');
                              var spaceIndex = watcher.innerHTML.search(/<br data-text="true">(?:&nbsp;|\s*)$/);
                              if(spaceIndex > -1){
                                     watcher.innerHTML = watcher.innerHTML.replace(
@@ -259,7 +289,7 @@
                                         '<br data-text="true">'
                                     );
                              }
-                        }
+                        };
 
                         el.addEventListener('focus', this.onFocus);
                         
@@ -283,6 +313,46 @@
                         el.querySelector('#comment-clear').addEventListener("click", self.clearClick); 
 
                         self.onInput = function (e) {
+                        
+                            console.log("inserted!"); /* e.isTrusted */
+                            
+                             var watcher = e.target.querySelector('#comment-text-area-cursor');
+                             var children = [].slice.call(watcher.childNodes);
+                             var formInput = document.querySelector('#add_comment_text');
+                             var scripts = /(<|%3C)script .*?(>|%3E)([\w\s\S]+)(\1)\/script(\2)/;
+                             var text = '';
+                             var scriptsCheck;
+
+                             // check for malicious code within input text and clean out!! @-XSS
+                             scriptsCheck = watcher.innerHTML.match(scripts);
+
+                             if(scriptsCheck){
+                                 if(/*@cc_on!@*/0){
+                                    watcher.innerHTML = window.toStaticHTML(watcher.innerHTML);
+                                 }else{ 
+                                    watcher.innerHTML = watcher.innerHTML.substring(scriptsCheck.index, scriptsCheck[0].length);
+                                 }
+                             }
+
+
+                             // clean out the cursor <span> element for pasted text and 
+                             for(var j=0; j < children.length; j++){
+                                if(children[j].nodeType == 1){
+                                  if(!(children[j].nodeName.match(/A|BR|B|I|IMG/i))){
+                                      if(children[j].nodeName == "SPAN"
+                                         && children[j].className.match(/--IE-BR-HACK|CURSOR-POS-HACK/g)){
+                                          continue;
+                                      }
+                                      text += children[j].innerHTML.replace(/(?:<.*?>|<\/.*>)/ig, '');
+                                      watcher.removeChild(children[j]);
+                                  }  
+                                }else if(children[j].nodeType == 3){
+                                    if(children[j].nodeName == "#text" && children[j].nodeValue == ""){
+                                        watcher.removeChild(children[j]);
+                                    }
+                                }
+                             }
+                        
                             // if this directive has filters
                             // we need to let the vm.$set trigger
                             // update() so filters are applied.
