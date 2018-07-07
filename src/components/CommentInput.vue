@@ -144,21 +144,24 @@
 
                     _savedSelection: null, // Default Value
 
-                    inserted:function(){
+                    inserted(){
                      
                      
                     },
                      
-                    componentUpdated:function(){
+                    componentUpdated(){
                      
                     },
 
-                    bind: function (el, binding, vnode, oldVnode) {
+                    bind(el, binding, vnode, oldVnode) {
 
                        var  self = this,
                             el   = self.el,
+                            bd_el = el.parentNode,
                             ESCAPE_KEY      = 27,
                             ENTER_KEY       = 13,
+                            BACK_SPACE      = 8,
+                                            = 40,
                             attrToChange    = 'textContent';
 
                         // Make the content editable
@@ -177,6 +180,8 @@
                                 el.blur();
                             }
                         }
+                        
+                        self.
 
                         self.onPaste = function(e){
                                  console.log("pasted!");
@@ -200,28 +205,71 @@
                         el.addEventListener("paste", self.onPaste);
 
                         el.addEventListener('keyup', this.onEsc);
+                        
+                        self.onMouseIn = function(e){
+                        
+                              console.log("cursor probably moved!");
+                              
+                              var watcher = document.querySelector('#comment-text-area-cursor');
+                              var watcherLineHeight = 16;
+                              var numOfLines = Math.floor((watcher.offsetHeight + 2) / watcherLineHeight);
+                              var rect = watcher.parentNode.getBoundingClientRect();
+                              
+                              // move @-mention dropdown as the cursor <span> element goes along
+                              var mentionDropDown = document.querySelector('#comment-text-area-mention-box');
+                              var xy = Helpers.getSelectionCaretChoords(e, watcher);
+                              var _xy = {x : rect.left, y : rect.top};
 
-                        self.onEnter = function(e) {
-                            if (e.keyCode === ENTER_KEY) {
+                             if(e.target.innerHTML.length == 0){
+                                  mentionDropDown.style.top = (watcher.offsetHeight + 2) + "px";
+                             }else{
+                                  mentionDropDown.style.top = ((xy.y - _xy.y - 1)  + watcherLineHeight) + "px";
+                             }  
+
+                             mentionDropDown.style.left = (xy.x - _xy.x) + "px";
+                             //console.log("mouse -> x: "+(xy.x - _xy.x)+", y:"+(xy.y - _xy.y));
+
+                        };
+
+                        self.onKeys = function(e) {
+                            /*if (e.keyCode === ENTER_KEY) {
                                 e.preventDefault();
                                 //el.blur();
-                            }
+                            }*/
                         }
+                        
+                        bd_el.addEventListener('mousedown', this.onMouseIn);
 
-                        el.addEventListener('keydown', this.onEnter)
+                        el.addEventListener('keydown', this.onKeys);
 
                         // On focus, store the initial value so it can be reset on escape
                         self.onFocus = function() {
                             self.initialValue = el[attrToChange]
                         }
+                        
+                        self.onCut = function(e){
+                        
+                             console.log("deleted!");
+
+                             var watcher = document.querySelector('#comment-text-area-cursor');
+                             var spaceIndex = watcher.innerHTML.search(/<br data-text="true">(?:&nbsp;|\s*)$/);
+                             if(spaceIndex > -1){
+                                    watcher.innerHTML = watcher.innerHTML.replace(
+                                        /<br data-text="true">(?:&nbsp;|\s*)$/,
+                                        '<br data-text="true">'
+                                    );
+                             }
+                        }
 
                         el.addEventListener('focus', this.onFocus);
+                        
+                        el.addEventListener('cut', this.onCut);
 
                         self.clearClick = function(e){
                             console.log("cleared!");
 
                             var watcher = e.target.parentNode.querySelector('#comment-text-area-cursor');
-                            var wrapper = e.target.parentNode.querySelectorAll('.comment-text-area-wrapper')[0];
+                            var wrapper = e.target.parentNode.querySelector('#comment-text-area-wrapper');
                             var mentionDropDown = e.target.parentNode.querySelector('#comment-text-area-mention-box');
 
                             mentionDropDown.style.left = "0px";
