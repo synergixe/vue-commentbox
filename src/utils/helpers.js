@@ -132,8 +132,8 @@ Helpers = {
     		img.style.width = "1.4em";
     		img.style.verticalAlign = "top";
 		
-		if(!this.doesSupportEmoji()){
-    			img.src = "//" + IMAGE_HOST + IMAGE_PATH + (hex.toString(16)) + IMAGE_EXT;
+		if(!Helpers.doesSupportEmoji()){
+    			img.src = "https://" + IMAGE_HOST + IMAGE_PATH + (hex.toString(16)) + IMAGE_EXT;
 		}else{
 			canvas = document.createElement('canvas');
 			canvas.width = "16";
@@ -313,7 +313,7 @@ Helpers = {
 		var fragment;
 
 		if(html){
-			fragment = this.convertHTMLToDOM(html);
+			fragment = Helpers.convertHTMLToDOM(html);
 		}
 
 		return fragment;
@@ -328,13 +328,13 @@ Helpers = {
 	 */
 	textRangeToHTML(){
 
-	 	var range = this.getCurrentTextRange(), 
-	 		nodes = this.getElementsBetweenTree(
+	 	var range = Helpers.getCurrentTextRange(), 
+	 		nodes = Helpers.getElementsBetweenTree(
 	 							range.startContainer, 
 	 							range.endContainer, 
 	 							range.commonAncestorContainer
 					),
-			html = this.convertDOMToHTML(nodes);
+			html = Helpers.convertDOMToHTML(nodes);
 
 			return html;
 	},
@@ -349,22 +349,22 @@ Helpers = {
 	 */
 	selectAllTextByOffset(watcher, {position, length = 0} = {}){
 
-		var node = this.convertHTMLToDOM(watcher.innerHTML),
+		var node = Helpers.convertHTMLToDOM(watcher.innerHTML),
 			selectionOffsetAnchors = [
-								this.convertHTMLToDOM(
+								Helpers.convertHTMLToDOM(
 									'<a id="__selectionOffset_Start"></a>'
 								).lastChild,
-								this.convertHTMLToDOM(
+								Helpers.convertHTMLToDOM(
 									'<a id="__selectionOffset_End"></a>'
 								).lastChild
 			],
 			movingOffset = -1,
-			frag = this.createAsFragment(null),
+			frag = Helpers.createAsFragment(null),
 			cursorStart = null,
 			cursorEnd = null;
 
-			watcher.innerHTML = this.convertDOMToHTML(
-									this.setAnchorsAtOffsetOnFragment(
+			watcher.innerHTML = Helpers.convertDOMToHTML(
+									Helpers.setAnchorsAtOffsetOnFragment(
 										node, 
 										movingOffset,
 										position,
@@ -655,7 +655,7 @@ Helpers = {
 	 */
 	selectAllText(watcher){
 
-		var range = getCurrentTextRange();
+		var range = Helpers.getCurrentTextRange();
 
 		if(range 
 			&& watcher
@@ -856,7 +856,7 @@ Helpers = {
 
         var choords = {x:0 , y:0}, 
         	spanRegex = /<span class=(["'])CURSOR-POS-HACK\1>(?:[^<]*)<\/span>/i,
-         	range =  getCurrentTextRange(eventObject), 
+         	range =  Helpers.getCurrentTextRange(eventObject), 
          	rect, marker, parent, caretOffset, preCaretRange;
 
         
