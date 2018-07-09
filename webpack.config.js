@@ -3,25 +3,13 @@ var webpack = require('webpack');
 
 module.exports = {
 	mode: process.env.NODE_ENV,
-	entry:{
-		"comment-box":"./src/index.js",
-		/*"exts":[
-			"./src/utils/helpers.js",
-			"./src/utils/ajax.js"
-		]*/
-	},
+	entry:path.resolve(__dirname, '/src/index.js'),
 	output:{
 		path: path.resolve(__dirname, './dist'),
-  		publicPath: '/dist/',
 		library: 'vueCommentBox',
 	    	libraryTarget: 'umd',
-	    	filename:"[name].js",
-	    	auxiliaryComment:{
-			root: 'Root Comment',
-      			commonjs: 'CommonJS Comment',
-      			commonjs2: 'CommonJS2 Comment',
-      			amd: 'AMD Comment'
-	    	}
+	    	filename:"vueCommentBox.js",
+	    	umdNamedDefine: true
 	},
 	module:{
 		rules: [
