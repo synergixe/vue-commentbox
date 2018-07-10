@@ -352,6 +352,8 @@
                                     }
                                 }
                              }
+                             
+                             formInput.value = watcher.innerHTML;
                         
                             // if this directive has filters
                             // we need to let the vm.$set trigger
