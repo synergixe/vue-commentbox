@@ -27,10 +27,26 @@ new Vue({
 	el:"#app",
 	components:{ CommentBox },
 	data:{
-	     placeHolderText:'Post Something'
+	     placeHolderText:'Post Something',
+	     xhr:true,
+	     befroeSend:function(){
+	     
+	     }
 	},
 	computed:{
-	
+		actionHref:function(){
+		
+			let origin = window.location.origin;
+		
+			return `${origin}/store/comment`;
+		},
+		thumbImage:function(){
+		
+			let scheme = window.location.protocol;
+			
+			return `${scheme}//assets-cdn.store.com.ng/images/png/passport.jpg`
+		
+		}
 	}
 });
 
@@ -38,9 +54,9 @@ new Vue({
 
 ```html
 
-	<script type="text/javascript" src="./js/main.js"></script>
+   <script type="text/javascript" src="./js/main.js"></script>
 
-   <comment-box :input-placeholder-text="placeHolderText" :context-author="'Dauda Adeboye'" :context-avatar-thumb="'http://assets.image-base.com/png/passport.jpg'" :box-action="'https://app.example.com/store/comment'" use-xhr="'true'" v-on:beforesend="beforeSend">
+   <comment-box :input-placeholder-text="placeHolderText" :context-author="'Dauda Adeboye'" :context-avatar-thumb="thumbImage" :box-action="actionHref" use-xhr="xhr" v-on:beforesend="beforeSend">
    		<div slot="autocomplete">
 			<ul>
 				<li></li>
