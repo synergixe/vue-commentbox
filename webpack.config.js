@@ -6,7 +6,7 @@ module.exports = {
 	entry:path.resolve(__dirname, '/src/index.js'),
 	output:{
 		path: path.resolve(__dirname, './dist'),
-		library: 'vueCommentBox',
+		library: 'vue-commentbox',
 	    	libraryTarget: 'umd',
 	    	filename:"vueCommentBox.js",
 	    	umdNamedDefine: true
