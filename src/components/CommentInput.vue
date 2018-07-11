@@ -51,9 +51,7 @@
     </div>
 
     <div id="comment-text-area-mention-box" class="absolute">
-    
-        <span>Loading...</span>
-
+        <slot></slot>
     </div>
 
 
@@ -645,7 +643,7 @@
   top:3px;
 }
 
-.comment-taskbar .comment-icon-file {
+/*.comment-taskbar .comment-icon-file {
 
 }
 
@@ -655,7 +653,7 @@
 
 .comment-taskbar .comment-icon-emoji {
 
-}
+}*/
 
 .comment-taskbar .comment-button {
   border-left:1px solid #999999;
