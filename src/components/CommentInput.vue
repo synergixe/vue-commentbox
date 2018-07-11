@@ -160,9 +160,9 @@
                             bd_el = el.parentNode,
                             ESCAPE_KEY      = 27,
                             ENTER_KEY       = 13,
-                            BACK_SPACE      = 8,
-                            DOWN_ARROW_KEY  = 40,
-                            RIGHT_ARROW_KEY = 39,
+                            BACKSPACE_KEY    = 8,
+                            DOWNARROW_KEY  = 40,
+                            RIGHTARROW_KEY = 39,
                             attrToChange    = 'textContent';
 
                         // Make the content editable
@@ -244,7 +244,8 @@
                              }  
 
                              mentionDropDown.style.left = (xy.x - _xy.x) + "px";
-                             //console.log("mouse -> x: "+(xy.x - _xy.x)+", y:"+(xy.y - _xy.y));
+                             
+                             // console.log("mouse -> x: "+(xy.x - _xy.x)+", y:"+(xy.y - _xy.y));
 
                         };
 
@@ -253,7 +254,177 @@
                                 e.preventDefault();
                                 //el.blur();
                             }*/
-                        }
+                            
+                             var selection;
+                             var range;
+                             var br;
+                             var anchorOffset; // caret position inside the text area cursor element
+                             var pos;
+                             var clonedRange;
+                             var newRange;
+                             var span;
+
+                             var watcher = e.target.querySelector('#comment-text-area-cursor');
+                             var watcherLineHeight = 16;
+                             var numOfLines = Math.floor((watcher.offsetHeight + 2) / watcherLineHeight);
+                             var rect = watcher.parentNode.getBoundingClientRect();
+                             
+                              // move @-mention autocomplete dropdown as the cursor <span> element goes along
+                              
+                             var mentionDropDown = document.querySelector('#comment-text-area-mention-box');
+                             var xy = Helpers.getSelectionCursorChoords(e, watcher);
+                             var _xy = {x : rect.left, y : rect.top};
+                             if(e.target.innerHTML.length == 0){
+                                  mentionDropDown.style.top = (watcher.offsetHeight + 2) + "px";
+                             }else{
+                                  mentionDropDown.style.top = ((xy.y - _xy.y - 1) + watcherLineHeight) + "px";
+                             }     
+
+                             mentionDropDown.style.left = (e.keyCode === 8 ? ((xy.x - _xy.x) < 7 ? (xy.x - _xy.x) : ((xy.x - _xy.x) - 7)) : ((xy.x - _xy.x) + 7)) + "px";
+                             
+                             range = Helpers.getCurrentTextRange();
+
+                             // console.log("key -> x: "+(xy.x - _xy.x)+", y:"+(xy.y - _xy.y));
+
+                              if(e.keyCode === BACKSPACE_KEY){ // backspace
+
+                                  if(!document.documentMode 
+                                        ||  document.documentMode >= 9){
+
+                                      if(!selection
+                                          || !selection.isCollapsed 
+                                            || !selection.rangeCount){
+
+                                          return;
+                                      }
+
+                                      if(range 
+                                            && range.commonAncestorContainer.nodeType === 3 
+                                              && range.startOffset > 0){
+
+                                            return;
+                                      }
+
+
+                                  }else{ // IE 8
+
+                                        if(!selection.collapsed){
+                                            return;
+                                        }
+
+                                  }
+                              }
+
+
+                             if(e.keyCode === BACKSPACE_KEY 
+                                && ((xy.x - _xy.x) === 0)
+                                 && ((xy.y - _xy.y) === 0)){
+                                console.log("backspace limit reached!!!");
+                                e.preventDefault();
+                                return false;
+                             }
+
+                             if(e.keyCode === RIGHTARROW_KEY || e.keyCode === DOWNARROW_KEY){
+
+                                  if(e.target.innerText.match(/^(?:[\s]*)$/)){
+                                       e.preventDefault();
+                                  }else{
+                                     if((xy.x - _xy.x) < watcher.parentNode.offsetWidth && /* there is no text after the current cursor position in the range */ true){
+                                          e.preventDefault();
+                                     }
+                                  }
+                             }
+
+                             if(e.keyCode === ENTER_KEY){
+
+                                 if(window.getSelection){
+
+                                    e.preventDefault();
+                                    e.stopPropagation(); // disabling event bubbling does sometimes affect cursor on scroll event...
+                                    // Opera/Firefox/Chrome/Safari and other Presto-based/Gecko-based/Webkit-based/Blink-based engines
+
+                                    br = document.createElement('br'); // range.createContextualFragment('<br>')
+                                    selection = window.getSelection();
+
+                                    if((('oscpu' in navigator)
+                                        || ({}).hasOwnProperty.call(navigator, 'oscpu') === true)){
+                                        br.setAttribute('data-mozdirty', 'true'); // Specific to Firefox
+                                    }else if(('opera' in window)
+                                                && (({}).toString.call(window.opera).toLowerCase() === '[object opera]')){
+                                        br.setAttribute('data-presto-hack', 'true');
+                                    }else{
+                                        br.className = '--WEBKIT-BR-HACK'; // Specific to Chrome/Safari/New Opera
+                                    }
+
+
+                                    range.deleteContents();
+                                    range.insertNode(br);
+
+                                    if(!('opera' in window)
+                                          || (typeof window.opera.version !== 'function')){
+
+                                        range = document.createRange();
+
+                                        range.setStartAfter(br);
+                                        range.setEndAfter(br);
+
+                                        range.collapse(false);
+
+                                    }else{
+
+                                        anchorOffset = selection.anchorOffset;
+
+                                        clonedRange = range.cloneRange();
+                                        clonedRange.selectNodeContents(watcher);
+                                        clonedRange.setEnd(range.endContainer, range.endOffset);
+                                        pos = clonedRange.toString().length;
+
+
+                                        range = document.createRange();
+
+                                        if(selection.anchorNode !== this){
+
+                                            span = document.createElement('span');
+                                            span.appendChild(document.createTextNode("\u200b"));
+
+                                            watcher.appendChild(span);
+
+                                            range.selectNode(span);
+
+                                        }
+
+                                        range.setStartAfter(span);
+                                        range.setEndAfter(span);
+
+                                    }
+
+                                    selection.removeAllRanges();
+                                    selection.addRange(range);
+
+                                    if(span){
+                                       watcher.removeChild(span);
+                                    }
+
+                                    return false;
+
+                                 }else if(/*@cc_on!@*/0
+                                          && document.documentMode === 8){
+
+                                      e.returnValue = false;
+                                      e.cancelBubble = true; // disabling event bubbling does sometimes affect cursor on scroll event...
+                                      // IE a.k.a the only Trident-based engine
+
+                                      range.pasteHTML('<BR><SPAN class="--IE-BR-HACK"></SPAN>');
+                                      // range.moveToElementText(selection.node);
+                                      range.moveEnd('character', 1);
+                                      range.moveStart('character', 1);
+                                      range.collapse(false);
+
+                                      return false;
+                                 }
+                              }   
+       
+                        };
                         
                         bd_el.addEventListener('mousedown', this.onMouseIn);
 
