@@ -21,7 +21,11 @@ An elegant and stylable comment box for VueJS web applications
 
 // js/main.js File
 
-import { CommentBox } from "vue-commentbox"
+// import { CommentBoxPlugin } from "vue-commentbox";
+
+// Vue.use(CommentBoxPlugin);
+
+import { CommentBox } from "vue-commentbox";
 
 new Vue({
 	el:"#app",
@@ -46,6 +50,10 @@ new Vue({
 			
 			return `${scheme}//assets-cdn.store.com.ng/images/png/passport.jpg`
 		
+		},
+		usernamesAvailable:function(){
+		
+			return true;
 		}
 	}
 });
@@ -57,9 +65,11 @@ new Vue({
    <script type="text/javascript" src="./js/main.js"></script>
 
    <comment-box :input-placeholder-text="placeHolderText" :context-author="'Dauda Adeboye'" :context-avatar-thumb="thumbImage" :box-action="actionHref" use-xhr="xhr" v-on:beforesend="beforeSend">
-   		<div slot="autocomplete">
-			<ul>
-				<li></li>
+   		<div v-bind:class="{}">
+			<span v-if="usernamesAvailable">Loading...</span>
+			<ul v-else>
+				<li>@obinna_992</li>
+				<li>@samina_ibro</li>
 			</ul>
 		</div>
    </comment-box>
