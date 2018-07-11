@@ -115,12 +115,6 @@
                 }
 
             }
-        },
-        render(cr){
-            var autocomplete = this.$slot.autocomplete;
-            var links = this.$slot.link;
-
-            //this.$el;
         }
     }
 </script>
