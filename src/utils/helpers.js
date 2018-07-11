@@ -1,5 +1,5 @@
 
-var 	REGIONAL_INDICATOR_A = parseInt("1f1e6", 16),
+const 	REGIONAL_INDICATOR_A = parseInt("1f1e6", 16),
     	REGIONAL_INDICATOR_Z = parseInt("1f1ff", 16),
    	IMAGE_HOST = "assets.github.com",
       	IMAGE_PATH = "/images/icons/emoji/unicode/",
