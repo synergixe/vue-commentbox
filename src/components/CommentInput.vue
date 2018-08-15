@@ -660,7 +660,7 @@
   width:45px;
 }
 
-.comment-taskbar .comment-button .comment-button-text{
+.comment-taskbar .comment-button .comment-button-text {
   width:100%;
   padding:7px 0;
 }
@@ -731,16 +731,16 @@
     padding-top: 7px;
 }
 
-iframe[name="comment-box-sink"]{
+iframe[name="comment-box-sink"] {
     left:-9999px;
     top:0;
 }
 
-section[role="dropup-menu"] span[role="arrow"]{
+section[role="dropup-menu"] span[role="arrow"] {
     /* triangle CSS */
 }
 
-section[role="dropup-menu"]{
+section[role="dropup-menu"] {
     z-index:300;
     width:120px;
     height:180px;
