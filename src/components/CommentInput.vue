@@ -29,7 +29,7 @@
  
                                                      <div class="relative" id="comment-border" data-contents-box="true" contenteditable="false">
 
-                                                              <div aria-describedby="commentbox-placeholder" aria-expanded="false" aria-haspopup="false" aria-hasdropdown="true" id="comment-text-area-wrapper" class="comment-text-area-wrapper"  v-editable-text role="combobox" spellcheck="true">
+                                                              <div aria-describedby="commentbox-placeholder" aria-expanded="false" aria-haspopup="false" aria-hasdropdown="true" id="comment-text-area-wrapper" class="comment-text-area-wrapper"  v-editable-text autocorrect="off" autocomplete="off" spellcheck="true" role="commentbox">
 
                     <div data-contents="true" class="comment-text-area">
 
