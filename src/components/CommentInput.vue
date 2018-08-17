@@ -622,6 +622,47 @@
 
 <style scoped>
 
+#comment-border .comment-text-area-wrapper {
+  display: block;
+  outline: none;
+  outline: 0;
+  /*overflow-y:auto;*/
+  /*tab-size:4;*/
+  /*-moz-tab-size:4;*/
+  text-align:left;
+  /*word-wrap: break-word;*/
+  /*white-space: -moz-pre-wrap;  Firefox 1.0-2.0 */
+  /*white-space: pre-wrap;      Modern browsers */
+  /*white-space: pre-line;*/
+  width:100%;
+}
+
+/*#comment-text-area-cursor {
+   display:inline-block;
+   width:100%;
+}*/
+
+#comment-text-area-cursor:empty:before {
+  content: "\200B";
+  display: inline;
+}
+
+#comment-text-area-mention-box {
+  z-index:5;
+  width:190px;
+  min-height:1px;
+  padding:0;
+  left:0;
+  top:16px;
+}
+
+#comment-text-area-strip {
+  overflow:visible;
+  font-family:monospace;
+  font-variant-ligatures: none;
+  -webkit-user-select: text;
+}
+
 .comment-taskbar { /* comment-taskbar */
   border:1px solid #999999;
   border-radius:3px;
