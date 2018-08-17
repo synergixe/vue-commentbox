@@ -661,6 +661,10 @@
   font-family:monospace;
   font-variant-ligatures: none;
   -webkit-user-select: text;
+  -moz-user-select:-moz-text;
+  -moz-user-select:text;
+  ms-user-select:text;
+  user-select:text;
 }
 
 .comment-taskbar { /* comment-taskbar */
