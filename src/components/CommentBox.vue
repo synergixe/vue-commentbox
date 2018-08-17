@@ -292,14 +292,14 @@
   width: 11px;
 }
 
-ol li,
-ul li{
+.comment-box-wrapper ol li,
+. comment-box-wrapper ul li {
     list-style-type: none;
     margin: 0;
 }
 
-ol,
-ul{
+.comment-box-wrapper ol,
+.comment-box-wrapper ul{
     margin: 0;
     padding: 0;
 }
