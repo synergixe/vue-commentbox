@@ -7,11 +7,13 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules"
   },
+  "main":"./dist/vue-commentbox.js",
+  "browser":"./dist/vue-commentbox.js",
+  "module":"./src/index.js",
   "dependencies": {
-    "moment": "^2.18.1",
-    "vue": "^2.2.1"
   },
   "devDependencies": {
+    "vue": "^2.5.7",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
