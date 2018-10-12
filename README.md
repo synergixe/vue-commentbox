@@ -9,7 +9,7 @@ An elegant and stylable comment box for VueJS web applications
 ```bash
 npm i vue-commentbox --save
 
-npm add yarn
+yarn add vue-commentbox
 ```
 
 ## Browser Support
