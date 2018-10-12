@@ -2,6 +2,16 @@
 
 An elegant and stylable comment box for VueJS web applications
 
+## Getting Started
+
+> Download from NPM or Yarn
+
+```bash
+npm i vue-commentbox --save
+
+npm add yarn
+```
+
 ## Browser Support
 
 - IE9+
