@@ -1,3 +1,11 @@
+/*!
+ * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
+ *
+ * @author: https://twitter.com/isocroft
+ * @version:
+ * @desc:
+ * @created: 
+ */
 
 const 	REGIONAL_INDICATOR_A = parseInt("1f1e6", 16),
     	REGIONAL_INDICATOR_Z = parseInt("1f1ff", 16),
@@ -583,7 +591,7 @@ Helpers = {
 		return frag;
 	},
 	/**
-	 *
+	 * convert a DOM node (or an array of DOM nodes) to the HTML string equivalent
 	 *
 	 * @param Array | HTMLElement | Element - dom
 	 * @returns String | Null - html
@@ -628,7 +636,7 @@ Helpers = {
 		return html;
 	},
 	/**
-	 *
+	 * convert a HTML string to a DOM node
 	 *
 	 * @param String - html 
 	 * @returns HTMLDivElement - rootNode
@@ -775,6 +783,27 @@ Helpers = {
 				&& watcher.contains(span)){
 				;
 		}
+	},
+	/**
+	 *
+	 *
+	 * @param Boolean - start
+	 * @param HTMLElement | Element - node :
+	 * @returns void
+	 *
+	 */
+	setRangeAtStartEnd(start, node){
+            var range, selection;
+
+            if(typeof start !== 'boolean') start = false;
+            if( typeof document.createRange !== 'function' ) return;
+
+            range = document.createRange();
+            range.selectNodeContents(node || this);
+            range.collapse(start);
+            selection = document.selection || window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
 	},
 	/**
 	 *
