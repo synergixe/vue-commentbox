@@ -1,3 +1,12 @@
+/*!
+ * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
+ *
+ * @author: https://twitter.com/isocroft
+ * @version:
+ * @desc:
+ * @created: 
+ */
+ 
 <template>
     <section class="comment-box">
       <form ref="form" class="comment-form" method="POST" :action="boxAction" :enctype="'multipart/form-data'" v-on:reset.prevent v-cloak :target="'comment-box-sink'">
