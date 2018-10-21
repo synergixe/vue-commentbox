@@ -1,3 +1,13 @@
+/*!
+ * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
+ *
+ * @author: https://twitter.com/isocroft
+ * @version:
+ * @desc:
+ * @created: 
+ */
+
+
 import CommentBox from './CommentBox.vue'
 
 const CommentBoxPlugin = {
