@@ -1,5 +1,5 @@
 {
-  "name": "vue-commentbox",
+  "name": "@synergixe/vue-commentbox",
   "description": "An elegant and stylable comment box for VueJS web applications",
   "version": "0.0.2",
   "author": "Ifeora Okechukwu <isocroft@gmail.com>",
