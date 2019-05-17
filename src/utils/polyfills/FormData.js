@@ -317,7 +317,7 @@ function addFormDataPolyfill(){
 
 		      chunks.push(`--${boundary}--`)
 
-		      return (typeof globale.Blob === 'function' ? new Blob(chunks, {type: 'multipart/form-data; boundary=' + boundary}) : chunks.join('');
+		      return (typeof globale.Blob === 'function' ? new Blob(chunks, {type: 'multipart/form-data; boundary=' + boundary}) : chunks.join(''));
 		    }
 
 

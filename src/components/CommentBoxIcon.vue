@@ -1,6 +1,6 @@
 <template>
   <svg :class="{icon: icon}">
-    <use :xlink:href="`#${href}`"></use>
+    <use :xlink:href="`#${href}`" />
   </svg>
 </template>
 
@@ -9,7 +9,7 @@
 // let isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
 export default {
-  name: 'icon',
+  name: 'Icon',
   props: {
     icon: {
       type: Boolean,

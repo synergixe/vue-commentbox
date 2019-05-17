@@ -1,142 +1,225 @@
 <template>
-    <div class="comment-row">
-         <div class="comment-box-mention comment-box-sticker-enabled relative clearfix" direction="left">
-                
-                <div class="pull-left left-float">
-                     <div class="img link-box margin-l5 comment-image-box">
-                              <img :alt="cAuthor" class="img thumb-box-small" :src="cAvatarThumb">
-                     </div>
+  <div class="comment-row">
+    <div
+      class="comment-box-mention comment-box-sticker-enabled relative clearfix"
+      direction="left"
+    >
+      <div class="pull-left left-float">
+        <div class="img link-box margin-l5 comment-image-box">
+          <img
+            :alt="cAuthor"
+            class="img thumb-box-small"
+            :src="cAvatarThumb"
+          >
+        </div>
+      </div>
+
+      <div class="no-pull">
+        <div class="comment-body-box variable-width-box">
+          <div class="comment-body-container">
+            <div class="comment-body-input-container">
+              <div class="relative">
+                <input
+                  id="add_comment_text"
+                  v-model="text"
+                  class="screened hidden"
+                  name="add_comment_text"
+                  tabindex="-1"
+                >
+ 
+                <div class="comment-body-input block-box comment-body-input-context">
+                  <div
+                    class="comment-body-input-control"
+                    tabindex="-2"
+                  >
+                    <div class="relative block-box">
+                      <div class="comment-input-control-placeholder-wrapper absolute">
+                        <div
+                          id="commentbox-placeholder"
+                          class="comment-input-control-placeholder"
+                          v-text="textPlaceholder"
+                        >
+                          <!--Post your comment...-->
+                        </div>
+                      </div>
+ 
+                      <div
+                        id="comment-border"
+                        class="relative"
+                        data-contents-box="true"
+                        contenteditable="false"
+                      >
+                        <div
+                          id="comment-text-area-wrapper"
+                          v-editable-text
+                          aria-describedby="commentbox-placeholder"
+                          aria-expanded="false"
+                          aria-haspopup="false"
+                          aria-hasdropdown="true"
+                          class="comment-text-area-wrapper"
+                          autocorrect="off"
+                          autocomplete="off"
+                          spellcheck="true"
+                          role="commentbox"
+                        >
+                          <div
+                            data-contents="true"
+                            class="comment-text-area"
+                          >
+                            <div
+                              data-block="true"
+                              data-editor="comment-text-area"
+                            >
+                              <div
+                                id="comment-text-area-strip"
+                                data-offset-width="1"
+                                class="relative"
+                              >
+                                <span
+                                  id="comment-text-area-cursor"
+                                  data-offset-key="xy-0-0"
+                                ><br data-text="true">
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        id="comment-text-area-mention-box"
+                        class="absolute"
+                      >
+                        <slot />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="no-pull">
-                      <div class="comment-body-box variable-width-box">
-                           <div class="comment-body-container">
-                                <div class="comment-body-input-container">
-                                    <div class="relative">
-
-                                     <input class="screened hidden" name="add_comment_text" id="add_comment_text" tabindex="-1">
- 
-                                          <div class="comment-body-input block-box comment-body-input-context">
-                                                <div class="comment-body-input-control" tabindex="-2">
-                                                  
-                                                     <div class="relative block-box">
-
-                                                           <div class="comment-input-control-placeholder-wrapper absolute">
-
-                                                                   <div class="comment-input-control-placeholder" id="commentbox-placeholder" v-text="textPlaceholder"><!--Post your comment...--></div>
-
-                                                            </div>
- 
-                                                     <div class="relative" id="comment-border" data-contents-box="true" contenteditable="false">
-
-                                                              <div aria-describedby="commentbox-placeholder" aria-expanded="false" aria-haspopup="false" aria-hasdropdown="true" id="comment-text-area-wrapper" class="comment-text-area-wrapper"  v-editable-text autocorrect="off" autocomplete="off" spellcheck="true" role="commentbox">
-
-                    <div data-contents="true" class="comment-text-area">
-
-                          <div data-block="true" data-editor="comment-text-area">
-
-                                  <div data-offset-width="1" class="relative" id="comment-text-area-strip">
-
-                                      <span data-offset-key="xy-0-0" id="comment-text-area-cursor" v-model="text"><br data-text="true">
-                                      </span>
-
-                                 </div>
-                          </div>
-
-                    </div>
+                <a
+                  id="comment-clear"
+                  href="javascript:void(0);"
+                  class="line-block-box absolute snap-top-right text-center comment-clear"
+                  title="Clear comment"
+                >
+                  &times;
+                </a>
+              </div>
 
 
-    </div>
+              <div class="text-right">
+                <div
+                  id="comment-taskbar"
+                  class="line-block-box clearfix relative comment-taskbar"
+                >
+                  <a
+                    class="line-block-box pull-left relative comment-icon comment-icon-file"
+                    href="javascript:void(0);"
+                    title="Attach a File, Photo or Video"
+                    data-hover="tooltip"
+                    data-tooltip="#attach-file"
+                  >
 
-    </div>
-
-    <div id="comment-text-area-mention-box" class="absolute">
-        <slot></slot>
-    </div>
-
-
-
-    </div>
-    </div>
-    </div>
-
-                  <a href="javascript:void(0);" class="line-block-box absolute snap-top-right text-center comment-clear" id="comment-clear" title="Clear comment">
-                              &times;
+                    <input
+                      ref="attachment"
+                      type="file"
+                      value=""
+                      accept="video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/png, image/jpg, image/jpeg, image/gif, application/pdf, application/zip"
+                      class="hidden"
+                      name="file"
+                    ><!-- IE 9 doesn't support ` multiple="multiple"` attribute for file inputs so we can't add it for now -->
+                    <icon href="attachment" />
                   </a>
+
+                  <a
+                    class="line-block-box pull-left relative comment-icon comment-icon-link"
+                    href="javascript:void(0);"
+                    title="Insert a Link"
+                    data-hover="tooltip"
+                    data-tooltip="#attach-link"
+                  >
+                    <input
+                      type="hidden"
+                      name="links"
+                      value="{}"
+                      class="hidden"
+                    >
+                    <icon href="link" />
+                  </a>
+
+                  <a
+                    class="line-block-box pull-left relative comment-icon comment-icon-emoji"
+                    href="javascript:void(0);"
+                    title="Insert an Emoji"
+                    data-hover="tooltip"
+                    data-tooltip="#attach-emoji"
+                  >
+                    <input
+                      type="hidden"
+                      name="emojis"
+                      value="{'happy-surprised':'em-svg em-1f604', 'sad':'em-svg em-1f6', 'angry':'em-svg em-1f620', 'victory-hand':'em-svg em-270C'}"
+                      class="hidden"
+                    >
+                    <icon href="emoji" />
+                  </a>
+
+
+
+                  <span
+                    id="send"
+                    class="line-block-box pull-left comment-button text-center"
+                    data-hover="tooltip"
+                    title="Send in your comment"
+                    @click="onClick"
+                  >
+
+                    <a
+                      tabindex="0"
+                      href="javascript:void(0);"
+                      class="line-block-box comment-button-text"
+                    >OK</a>
+
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-                                <div class="text-right">
-
-                                           <div class="line-block-box clearfix relative comment-taskbar" id="comment-taskbar">
-
-                <a class="line-block-box pull-left relative comment-icon comment-icon-file" href="javascript:void(0);" title="Attach a File, Photo or Video"  data-hover="tooltip" data-tooltip="#attach-file">
-
-                     <input type="file" ref="attachment" value="" accept="video/x-m4v, video/webm, video/x-ms-wmv, video/x-msvideo, video/3gpp, video/flv, video/x-flv, video/mp4, video/quicktime, video/mpeg, video/ogv, image/png, image/jpg, image/jpeg, image/gif, application/pdf, application/zip" class="hidden" name="file"><!-- IE 9 doesn't support ` multiple="multiple"` attribute for file inputs so we can't add it for now -->
-                     <icon href="attachment"></icon>
-                </a>
-
-                <a class="line-block-box pull-left relative comment-icon comment-icon-link" href="javascript:void(0);" title="Insert a Link"  data-hover="tooltip" data-tooltip="#attach-link">
-                      <input type="hidden" name="links" value="{}" class="hidden">
-                      <icon href="link"></icon>
-                </a>
-
-                <a class="line-block-box pull-left relative comment-icon comment-icon-emoji" href="javascript:void(0);" title="Insert an Emoji"  data-hover="tooltip" data-tooltip="#attach-emoji">
-                      <input type="hidden" name="emojis" value="{'happy-surprised':'em-svg em-1f604', 'sad':'em-svg em-1f6', 'angry':'em-svg em-1f620', 'victory-hand':'em-svg em-270C'}" class="hidden">
-                      <icon href="emoji"></icon>
-                </a>
-
-
-
-         <span v-on:click="onClick" id="send" class="line-block-box pull-left comment-button text-center" data-hover="tooltip" title="Send in your comment">
-
-                <a tabindex="0" href="javascript:void(0);" class="line-block-box comment-button-text">OK</a>
-
-         </span>
-
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-   </div>
-        <section id="attach-file" class="absolute" role="dropup-menu" aria-target="[]">
-        
-            <span role="arrow"></span>
-        </section>
-        <section id="attach-link" class="absolute" role="dropup-menu" aria-target="[]">
-        
-            <span role="arrow"></span>
-        </section>
-        <section id="attach-emoji" class="absolute" role="dropup-menu" aria-target="[]">
-        
-            <span role="arrow"></span>
-        </section>
-   </div>
+    <section
+      id="attach-file"
+      class="absolute"
+      role="dropup-menu"
+      aria-target="[]"
+    >
+      <span role="arrow" />
+    </section>
+    <section
+      id="attach-link"
+      class="absolute"
+      role="dropup-menu"
+      aria-target="[]"
+    >
+      <span role="arrow" />
+    </section>
+    <section
+      id="attach-emoji"
+      class="absolute"
+      role="dropup-menu"
+      aria-target="[]"
+    >
+      <span role="arrow" />
+    </section>
+  </div>
 </template>
 
 <script>
     import * as Helpers from '@/utils/helpers'
-    import CommentBoxIcon from "./CommnetBoxIcon.vue"
+    import CommentBoxIcon from "./CommnetBoxIcon.vue" /* eslint-disable-line vue/no-unused-components */
 
     export default {
-        components: { CommentBoxIcon }
-        props:{
-            textPlaceholder:{
-                    type:String,
-                    required:true
-            },
-            cAuthor:String,
-            cAvatarThumb:String
-        },
-        data() {
-            return {
-                text: ""
-            }
-        },
+        components: { CommentBoxIcon }, /* eslint-disable-line vue/no-unused-components */
         directives:{
             editableText: {
 
@@ -314,7 +397,7 @@
                               }
 
 
-                             if(e.keyCode === BACKSPACE_KEY 
+                             if((e.keyCode === BACKSPACE_KEY)
                                 && ((xy.x - _xy.x) === 0)
                                  && ((xy.y - _xy.y) === 0)){
                                 console.log("backspace limit reached!!!");
@@ -576,6 +659,19 @@
                         el.removeEventListener('keydown', this.onEnter)
                         el.removeEventListener('focus', this.onFocus)
                     }
+            }
+        },
+        props:{
+            textPlaceholder:{
+                    type:String,
+                    required:true
+            },
+            cAuthor:String,
+            cAvatarThumb:String
+        },
+        data() {
+            return {
+                text: ""
             }
         },
         methods: {

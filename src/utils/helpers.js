@@ -779,7 +779,7 @@ Helpers = {
 
 		watcher.removeChild(span);
 
-		if(tyepof watcher.contains === 'function' 
+		if(typeof watcher.contains === 'function' 
 				&& watcher.contains(span)){
 				;
 		}
@@ -815,7 +815,7 @@ Helpers = {
 	insertNodeAtCursor(node) {
 	    var sel, range, html;
 
-	    if(tyepof node === 'string'
+	    if(typeof node === 'string'
 	      	&& !(/\<(?:[>]+)\/?\>/g.test(node))){ // make sure it's not a HTML string
 	    		node = document.createTextNode(node);
 	    }

@@ -8,28 +8,78 @@
  */
  
 <template>
-    <section class="comment-box">
-      <h6>Replies</h6>
-      <form ref="form" class="comment-form" method="POST" :action="boxAction" :enctype="'multipart/form-data'" v-on:reset.prevent v-cloak :target="'comment-box-sink'">
-        <fieldset class="comment-box-wrapper">
-            <comment-list :comments="comments"></comment-list>
-            <comment-input v-on:send="onFormSend" :text-placeholder="inputPlaceholderText" :c-author="contextAuthor" :c-avatar-thumb="contextAvatarThumb"></comment-input>
-        </fieldset>
-        <iframe :src="'about:blank'" :name="'comment-box-sink'" :id="'comment-box-sink'" class="absolute" :marginheight="'0'" :marginwidth="'0'" :scrolling="'no'" :height="'0'" :width="'0'" :allowtransperency="'true'" :frameborder="'0'"></iframe>
-      </form>
-      <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
-            <symbol id="link" viewBox="0 0 18 18">
-                <path :fill="`#${iconFillColor}`" d="M6.879 9.934c-0.208 0-0.416-0.079-0.575-0.238-1.486-1.486-1.486-3.905 0-5.392l3-3c0.72-0.72 1.678-1.117 2.696-1.117s1.976 0.397 2.696 1.117c1.486 1.487 1.486 3.905 0 5.392l-1.371 1.371c-0.317 0.317-0.832 0.317-1.149 0s-0.317-0.832 0-1.149l1.371-1.371c0.853-0.853 0.853-2.241 0-3.094-0.413-0.413-0.963-0.641-1.547-0.641s-1.134 0.228-1.547 0.641l-3 3c-0.853 0.853-0.853 2.241 0 3.094 0.317 0.317 0.317 0.832 0 1.149-0.159 0.159-0.367 0.238-0.575 0.238z" />
-                <path :fill="`#${iconFillColor}`" d="M4 15.813c-1.018 0-1.976-0.397-2.696-1.117-1.486-1.486-1.486-3.905 0-5.392l1.371-1.371c0.317-0.317 0.832-0.317 1.149 0s0.317 0.832 0 1.149l-1.371 1.371c-0.853 0.853-0.853 2.241 0 3.094 0.413 0.413 0.962 0.641 1.547 0.641s1.134-0.228 1.547-0.641l3-3c0.853-0.853 0.853-2.241 0-3.094-0.317-0.317-0.317-0.832 0-1.149s0.832-0.317 1.149 0c1.486 1.486 1.486 3.905 0 5.392l-3 3c-0.72 0.72-1.678 1.117-2.696 1.117z"/>
-            </symbol>
-            <symbol id="attachment" viewBox="0 0 18 18">
-                <path :fill="`#${iconFillColor}`" d="M10.404 5.11l-1.015-1.014-5.075 5.074c-0.841 0.841-0.841 2.204 0 3.044s2.204 0.841 3.045 0l6.090-6.089c1.402-1.401 1.402-3.673 0-5.074s-3.674-1.402-5.075 0l-6.394 6.393c-0.005 0.005-0.010 0.009-0.014 0.013-1.955 1.955-1.955 5.123 0 7.077s5.123 1.954 7.078 0c0.004-0.004 0.008-0.009 0.013-0.014l0.001 0.001 4.365-4.364-1.015-1.014-4.365 4.363c-0.005 0.004-0.009 0.009-0.013 0.013-1.392 1.392-3.656 1.392-5.048 0s-1.392-3.655 0-5.047c0.005-0.005 0.009-0.009 0.014-0.013l-0.001-0.001 6.395-6.393c0.839-0.84 2.205-0.84 3.045 0s0.839 2.205 0 3.044l-6.090 6.089c-0.28 0.28-0.735 0.28-1.015 0s-0.28-0.735 0-1.014l5.075-5.075z"/>
-            </symbol>
-            <symbol id="emoji" viewBox="0 0 18 18">
-                <path :fill="`#${iconFillColor}`" d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM8 1.5c3.59 0 6.5 2.91 6.5 6.5s-2.91 6.5-6.5 6.5-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5zM4 5c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM10 5c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM11.002 9.801l1.286 0.772c-0.874 1.454-2.467 2.427-4.288 2.427s-3.413-0.973-4.288-2.427l1.286-0.772c0.612 1.018 1.727 1.699 3.002 1.699s2.389-0.681 3.002-1.699z"/>
-            </symbol>
-      </svg>
-    </section>
+  <section class="comment-box">
+    <h6>Replies</h6>
+    <form
+      v-cloak
+      ref="form"
+      class="comment-form"
+      method="POST"
+      :action="boxAction"
+      :enctype="'multipart/form-data'"
+      :target="'comment-box-sink'"
+      @reset.prevent
+    >
+      <fieldset class="comment-box-wrapper">
+        <comment-list :comments="comments" />
+        <comment-input
+          :text-placeholder="inputPlaceholderText"
+          :c-author="contextAuthor"
+          :c-avatar-thumb="contextAvatarThumb"
+          @send="onFormSend"
+        />
+      </fieldset>
+      <iframe
+        :id="'comment-box-sink'"
+        :src="'about:blank'"
+        :name="'comment-box-sink'"
+        class="absolute"
+        :marginheight="'0'"
+        :marginwidth="'0'"
+        :scrolling="'no'"
+        :height="'0'"
+        :width="'0'"
+        :allowtransperency="'true'"
+        frameborder="0"
+      />
+    </form>
+    <svg
+      style="display:none;"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <symbol
+        id="link"
+        viewBox="0 0 18 18"
+      >
+        <path
+          :fill="`#${iconFillColor}`"
+          d="M6.879 9.934c-0.208 0-0.416-0.079-0.575-0.238-1.486-1.486-1.486-3.905 0-5.392l3-3c0.72-0.72 1.678-1.117 2.696-1.117s1.976 0.397 2.696 1.117c1.486 1.487 1.486 3.905 0 5.392l-1.371 1.371c-0.317 0.317-0.832 0.317-1.149 0s-0.317-0.832 0-1.149l1.371-1.371c0.853-0.853 0.853-2.241 0-3.094-0.413-0.413-0.963-0.641-1.547-0.641s-1.134 0.228-1.547 0.641l-3 3c-0.853 0.853-0.853 2.241 0 3.094 0.317 0.317 0.317 0.832 0 1.149-0.159 0.159-0.367 0.238-0.575 0.238z"
+        />
+        <path
+          :fill="`#${iconFillColor}`"
+          d="M4 15.813c-1.018 0-1.976-0.397-2.696-1.117-1.486-1.486-1.486-3.905 0-5.392l1.371-1.371c0.317-0.317 0.832-0.317 1.149 0s0.317 0.832 0 1.149l-1.371 1.371c-0.853 0.853-0.853 2.241 0 3.094 0.413 0.413 0.962 0.641 1.547 0.641s1.134-0.228 1.547-0.641l3-3c0.853-0.853 0.853-2.241 0-3.094-0.317-0.317-0.317-0.832 0-1.149s0.832-0.317 1.149 0c1.486 1.486 1.486 3.905 0 5.392l-3 3c-0.72 0.72-1.678 1.117-2.696 1.117z"
+        />
+      </symbol>
+      <symbol
+        id="attachment"
+        viewBox="0 0 18 18"
+      >
+        <path
+          :fill="`#${iconFillColor}`"
+          d="M10.404 5.11l-1.015-1.014-5.075 5.074c-0.841 0.841-0.841 2.204 0 3.044s2.204 0.841 3.045 0l6.090-6.089c1.402-1.401 1.402-3.673 0-5.074s-3.674-1.402-5.075 0l-6.394 6.393c-0.005 0.005-0.010 0.009-0.014 0.013-1.955 1.955-1.955 5.123 0 7.077s5.123 1.954 7.078 0c0.004-0.004 0.008-0.009 0.013-0.014l0.001 0.001 4.365-4.364-1.015-1.014-4.365 4.363c-0.005 0.004-0.009 0.009-0.013 0.013-1.392 1.392-3.656 1.392-5.048 0s-1.392-3.655 0-5.047c0.005-0.005 0.009-0.009 0.014-0.013l-0.001-0.001 6.395-6.393c0.839-0.84 2.205-0.84 3.045 0s0.839 2.205 0 3.044l-6.090 6.089c-0.28 0.28-0.735 0.28-1.015 0s-0.28-0.735 0-1.014l5.075-5.075z"
+        />
+      </symbol>
+      <symbol
+        id="emoji"
+        viewBox="0 0 18 18"
+      >
+        <path
+          :fill="`#${iconFillColor}`"
+          d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zM8 1.5c3.59 0 6.5 2.91 6.5 6.5s-2.91 6.5-6.5 6.5-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5zM4 5c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM10 5c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM11.002 9.801l1.286 0.772c-0.874 1.454-2.467 2.427-4.288 2.427s-3.413-0.973-4.288-2.427l1.286-0.772c0.612 1.018 1.727 1.699 3.002 1.699s2.389-0.681 3.002-1.699z"
+        />
+      </symbol>
+    </svg>
+  </section>
 </template>
 
 <script>
@@ -41,7 +91,7 @@
     import CommentInput from "./CommentInput.vue";
 
     export default {
-        name: 'comment-box',
+        name: 'CommentBox',
         components: { CommentList, CommentInput },
         props:{
           iconFillColor:{
@@ -69,7 +119,7 @@
           comments:{
                type:Array,
                required:true,
-               default:[]
+               default:function () { return [] }
           }
         },
         data () {
@@ -77,10 +127,10 @@
                 currentCommentIndex:-1,
                 currentCommentText:'',
                 currentComment:null,
-                comments: this.comments /*[
+                /* comments: [
                     {avatar_thumbnail:"", author: "Mike", text: "This is a comment"},
                     {avatar_thumbnail:"", author: "Joe", text: "This is another comment"},
-                ]*/
+                ] */
             }
         },
         events: {
@@ -123,7 +173,10 @@
                     if(data.status === 'success'){
 
                         new_comment.posted = true
-                        new_comment.text = data.body
+
+                        if(data.bodySafe === true)
+                            new_comment.text = this.currentCommentText
+                        }
 
                         this.$emit('new-comment-save', new_comment);
                     }
@@ -151,7 +204,6 @@
 
             }
         }
-    }
 </script>
 
 <style>

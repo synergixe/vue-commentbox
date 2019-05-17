@@ -8,11 +8,21 @@
  */
  
 <template>
-    <div class="comment-list-row">
-        <ul class="comment-list" ref="clist">
-            <comment v-for="(comment, index) in comments" :key="`comment-${index}`" :author="comment.author" :text="comment.text" :posted="comment.posted" :avatar-thumbnail="comment.avatar_thumbnail"></comment>
-        </ul>
-    </div>
+  <div class="comment-list-row">
+    <ul
+      ref="clist"
+      class="comment-list"
+    >
+      <comment
+        v-for="(comment, index) in comments"
+        :key="`comment-${index}`"
+        :author="comment.author"
+        :text="comment.text"
+        :posted="comment.posted"
+        :avatar-thumbnail="comment.avatar_thumbnail"
+      />
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -22,15 +32,15 @@
     
     export default {
         components: { Comment },
+        props: {
+            comments:Array
+        },
         mounted(){
 
             if(!Helpers.doesSupportEmoji()){
 	            Helpers.replaceAllEmojiInAncestor(this.$ref.clist);
             }
 
-        },
-        props: {
-            comments:Array
         }
     };
 </script>

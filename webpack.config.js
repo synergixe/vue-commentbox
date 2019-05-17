@@ -12,15 +12,13 @@ const isProd = _env === 'production'
 const isTest = _env === 'test'
 
 module.exports = {
-	mode: _env,
+	mode: (_env === "test" ? "none" : _env),
 	entry:{
 		vuecommentbox : path.resolve(__dirname, '/src/index.js'),
 		app: path.resolve(__dirname, '/demo/index.js')
 	},
 	output:{
 			path: path.resolve(__dirname, './dist'),
-			publicPath: '/dist/',
-			library: 'vue-commentbox',
 			libraryTarget: 'umd',
 			filename:"[name].js",
 			umdNamedDefine: true
@@ -66,7 +64,7 @@ module.exports = {
 	},
 	plugins:[
 		new VueLoaderPlugin(),
-		new HTMLWebpackPlugin({
+		new HtmlWebpackPlugin({
 			filename: path.join(__dirname, 'dist', 'index.html'),
       template: path.join(__dirname, 'demo', 'index.html'),
       inject: true,

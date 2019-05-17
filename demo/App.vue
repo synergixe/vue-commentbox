@@ -8,20 +8,52 @@
  */
  
 <template>
-    <main class="">
-        <>
-    </main>
+  <main class="">
+    <comment-box
+      :input-placeholder-text="placeHolderText"
+      :context-author="'Dauda Adeboye'"
+      :context-avatar-thumb="thumbImage"
+      :box-action="actionHref"
+      :use-xhr="xhr"
+      @beforesend="beforeSend"
+    />
+  </main>
 </template>
 
 <script>
-import VueCommentBox from '@/src/index.js'
+import CommentBox from '@/src/index.js'
 
 export default {
     components: {
-        VueCommentBox
+        CommentBox
     },
-    props: {
-
+    data: () => ({
+      placeHolderText:'Post Something',
+      xhr:true
+    }),
+    method:{
+      beforeSend:function(){
+	     
+      }
+    },
+    computed:{
+      actionHref:function(){
+      
+        let origin = window.location.origin;
+      
+        return `${origin}/store/comment`;
+      },
+      thumbImage:function(){
+      
+        let scheme = window.location.protocol;
+        
+        return `${scheme}//assets-cdn.store.com.ng/images/png/passport.jpg`
+      
+      },
+      usernamesAvailable:function(){
+      
+        return true;
+      }
     }
 }
 </script>
