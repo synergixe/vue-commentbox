@@ -7,7 +7,7 @@
  * @created: 
  */
 
-import installFormDataPolyfill from "@/polyfills/FormData";
+import installFormDataPolyfill from "./polyfills/FormData";
 
 var Ajax = {
 	/**

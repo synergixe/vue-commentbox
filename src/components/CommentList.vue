@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import * as Helpers from '../utils/helpers'
+    import Helpers from "../utils/helpers.js"
 
     import Comment from "./Comment.vue";
     

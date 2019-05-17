@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const _env = process.env.NODE_ENV
 const isProd = _env === 'production'
@@ -14,11 +15,11 @@ const isTest = _env === 'test'
 module.exports = {
 	mode: (_env === "test" ? "none" : _env),
 	entry:{
-		vuecommentbox : path.resolve(__dirname, '/src/index.js'),
-		app: path.resolve(__dirname, '/demo/index.js')
+		vuecommentbox : path.resolve(__dirname, 'src/index.js'),
+		app: path.resolve(__dirname, 'demo/index.js')
 	},
 	output:{
-			path: path.resolve(__dirname, './dist'),
+			path: path.resolve(__dirname, 'dist'),
 			libraryTarget: 'umd',
 			filename:"[name].js",
 			umdNamedDefine: true
@@ -30,7 +31,12 @@ module.exports = {
 			    exclude: /node_modules/,
 			    loader: 'vue-loader',
 			    options: {
-						
+					loaders: {
+						css: ExtractTextPlugin.extract({
+							use: 'css-loader',
+							fallback: 'vue-style-loader'
+						})
+					}
 			    }
 			},
 			{
@@ -39,14 +45,25 @@ module.exports = {
 			    loader: 'babel-loader'
 			},
 			{
-					test: /\.(png|jpg|gif|svg)$/i,
-					use: [ {
-						loader: 'url-loader',
-						options: {
-							limit:4048,
-							name: '[name].[ext]?[hash]'
-						}
-					}]
+				test: /\.css$/,
+				exclude: /node_modules/,
+				use:[
+					{
+						loader: 'css-loader',
+						options: {}
+					}
+				]
+			},
+			{
+				test: /\.(png|jpg|gif|svg)$/i,
+				use: [ {
+					loader: 'url-loader',
+					options: {
+						limit:4048,
+						fallback: 'file-loader',
+						name: '[name].[ext]?[hash]'
+					}
+				}]
 			}
 		]
 	},
@@ -66,23 +83,23 @@ module.exports = {
 		new VueLoaderPlugin(),
 		new HtmlWebpackPlugin({
 			filename: path.join(__dirname, 'dist', 'index.html'),
-      template: path.join(__dirname, 'demo', 'index.html'),
-      inject: true,
-      minify: isProd ? {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        // More options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      } : false,
+      		template: path.join(__dirname, 'demo', 'index.html'),
+      		inject: true,
+      		minify: isProd ? {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true,
+				// More options:
+				// https://github.com/kangax/html-minifier#options-quick-reference
+			} : false
 		})
 	],
 	optimization: {
 		splitChunks: {
-      // Must be specified for HtmlWebpackPlugin to work correctly.
-      // See: https://github.com/jantimon/html-webpack-plugin/issues/882
-      chunks: 'all',
-    }
+      	// Must be specified for HtmlWebpackPlugin to work correctly.
+      	// See: https://github.com/jantimon/html-webpack-plugin/issues/882
+      		chunks: 'all',
+    	}
 	},
 	performance: {
 	  	hints: false
@@ -100,6 +117,13 @@ if (isProd) {
 		// Crumples your bundled source code into a tiny little ball.
     // (Minifies it.)
     new UglifyJsPlugin({
+			uglifyOptions: {
+				ecma: 7,
+				ie8: false,
+				output: {
+					comments: false
+				}
+			},
 			cache: true,
 			parallel: true,
 			sourceMap: !isProd

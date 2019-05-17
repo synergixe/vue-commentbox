@@ -215,8 +215,8 @@
 </template>
 
 <script>
-    import * as Helpers from '@/utils/helpers'
-    import CommentBoxIcon from "./CommnetBoxIcon.vue" /* eslint-disable-line vue/no-unused-components */
+    import Helpers from "../utils/helpers.js"
+    import CommentBoxIcon from "./CommentBoxIcon.vue" /* eslint-disable-line vue/no-unused-components */
 
     export default {
         components: { CommentBoxIcon }, /* eslint-disable-line vue/no-unused-components */

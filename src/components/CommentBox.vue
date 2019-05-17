@@ -83,9 +83,7 @@
 </template>
 
 <script>
-    import * as Ajax from "@/utils/ajax"
-    
-    import EmojiCSS from  'https://afeld.github.io/emoji-css/emoji.css'
+    import Ajax from "../utils/ajax.js"
     
     import CommentList from "./CommentList.vue";
     import CommentInput from "./CommentInput.vue";
@@ -208,6 +206,7 @@
 
 <style>
 
+@import 'https://afeld.github.io/emoji-css/emoji.css';
 
 .relative{
    position:relative;

@@ -8,7 +8,7 @@
  */
  
 <template>
-  <main class="">
+  <main class="board">
     <comment-box
       :input-placeholder-text="placeHolderText"
       :context-author="'Dauda Adeboye'"
@@ -59,5 +59,11 @@ export default {
 </script>
 
 <style scoped>
-
+.board{
+  width: auto !important;
+  display: block;
+  border:none;
+  margin:0;
+  padding:20px;
+}
 </style>
