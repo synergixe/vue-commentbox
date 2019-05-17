@@ -1,14 +1,14 @@
 <template>
     <div class="comment-row">
          <div class="comment-box-mention comment-box-sticker-enabled relative clearfix" direction="left">
+                
                 <div class="pull-left left-float">
                      <div class="img link-box margin-l5 comment-image-box">
                               <img :alt="cAuthor" class="img thumb-box-small" :src="cAvatarThumb">
-
                      </div>
-               </div>
+                </div>
 
-               <div class="no-pull">
+                <div class="no-pull">
                       <div class="comment-body-box variable-width-box">
                            <div class="comment-body-container">
                                 <div class="comment-body-input-container">
@@ -88,7 +88,7 @@
 
 
 
-         <span v-on:click="onClick" class="line-block-box pull-left comment-button text-center" data-hover="tooltip" title="Send in your comment">
+         <span v-on:click="onClick" id="send" class="line-block-box pull-left comment-button text-center" data-hover="tooltip" title="Send in your comment">
 
                 <a tabindex="0" href="javascript:void(0);" class="line-block-box comment-button-text">OK</a>
 
@@ -581,13 +581,15 @@
         methods: {
             // Handle OK button click
             onClick(event) {
-                if (this.text !== "") {
-                    // Dispatch event to parent components
-                    this.$dispatch("new-comment", {
-                        text: (Helpers.textRangeToHTML() || this.text)
+
+                var _text = this.text.trim()
+
+                if (_text !== "") {
+                    // dispatch event to parent component(s) method
+                    this.vm.$emit('send', {
+                        event:event,
+                        text: (Helpers.textRangeToHTML() || _text)
                     });
-                    
-                    this.vm.$emit('send', event);
 
                     // Reset Form
                     this.text = "";

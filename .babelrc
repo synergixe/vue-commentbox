@@ -1,18 +1,26 @@
 {
-  "presets": [
-      ["env", {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "modules":false,
           "targets": {
-              "browsers":[
-                  "> 0.25%",
-                  "last 8 versions",
-                  "not ie <= 8",
-                  "not op_mini all"
-              ],
-              "uglify":false,
-              "modules":false
-          }
-      }]
-    "stage-3"
-  ],
-  "comments": false
-}
+                "browsers":[
+                    "> 0.25%",
+                    "last 8 versions",
+                    "not ie <= 8",
+                    "not op_mini all"
+                ]
+            }
+        }
+      ]
+    ],
+    "comments": false,
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "transform-vue-jsx", 
+        "transform-runtime",
+        "istanbul"
+    ]
+  }

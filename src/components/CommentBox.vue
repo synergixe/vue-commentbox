@@ -9,6 +9,7 @@
  
 <template>
     <section class="comment-box">
+      <h6>Replies</h6>
       <form ref="form" class="comment-form" method="POST" :action="boxAction" :enctype="'multipart/form-data'" v-on:reset.prevent v-cloak :target="'comment-box-sink'">
         <fieldset class="comment-box-wrapper">
             <comment-list :comments="comments"></comment-list>
@@ -46,7 +47,7 @@
           iconFillColor:{
                 type:String,
                 required:true,
-                default:'000000'
+                default:'aaeced'
           },
           inputPlaceholderText:{
                 type:String,
@@ -73,6 +74,8 @@
         },
         data () {
             return {
+                currentCommentIndex:-1,
+                currentCommentText:'',
                 currentComment:null,
                 comments: this.comments /*[
                     {avatar_thumbnail:"", author: "Mike", text: "This is a comment"},
@@ -81,37 +84,57 @@
             }
         },
         events: {
+            "beforesend": (form_elem) => {
+
+            },
             // Add new comment
-            "new-comment": (comment) => {
-                comment.avatar_thumbnail = this.conetxtAvatarThumb;
-                comment.author = this.contextAuthor;
+            "new-comment-save": (comment) => {
 
-                this.currentComment = this.vm.$emit('new-comment-dispatch', comment);
+                this.comments[this.currentCommentIndex] = comment
 
-                this.comments.push(comment);
+                this.currentComment = null
+
+                this.currentCommentIndex = -1
+
+                this.currentCommentText = ''
             }
         },
         methods:{
             validate(){
-                    
-                    // Validate input {hidden} fields...
-            },
-            createResponseCallback(component){
-
-                return (data) => {
-
-                    component.$emit('new-comment-saved', data);
-
-                }
-            },
-            onFormSend(event){
-                
-                this.validate();
 
                 // this.$refs.form.chechValidity();
                 // this.$refs.form.reportValidity();
+                    
+                // Validate input {hidden} fields...
+            },
+            createResponseCallback(new_comment){
 
-                this.currentComment;
+                new_comment.avatar_thumbnail = this.conetxtAvatarThumb;
+                new_comment.author = this.contextAuthor;
+
+                this.currentComment = new_comment;
+
+                this.comments.push(this.currentComment);
+
+                this.currentCommentIndex = this.comments.length - 1
+
+                return (data) => {
+
+                    if(data.status === 'success'){
+
+                        new_comment.posted = true
+                        new_comment.text = data.body
+
+                        this.$emit('new-comment-save', new_comment);
+                    }
+
+                }
+            },
+            onFormSend(payload){
+                
+                this.validate();
+
+                this.currentCommentText = payload.text;
 
                 this.$emit('beforesend', [this.$refs.form]);
 
@@ -119,7 +142,10 @@
 
                 if(promise !== null){
                     promise.then(
-                        this.createResponseCallback(this)
+                        this.createResponseCallback({
+                            text:'Posting...',
+                            posted:false
+                        })
                     );
                 }
 
