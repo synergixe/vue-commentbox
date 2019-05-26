@@ -446,8 +446,10 @@
 
                                         range = document.createRange();
 
-                                        range.setStartAfter(br);
-                                        range.setEndAfter(br);
+                                        /*range.setStartAfter(br);
+                                        range.setEndAfter(br);*/
+                                        
+                                        range.selectNodeContents(watcher);
 
                                         range.collapse(false);
 
