@@ -379,7 +379,7 @@
 }
 
 .comment-box-wrapper ol li,
-. comment-box-wrapper ul li {
+.comment-box-wrapper ul li {
     list-style-type: none;
     margin: 0;
 }

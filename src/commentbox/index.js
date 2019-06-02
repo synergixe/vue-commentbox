@@ -8,7 +8,7 @@
  */
 
 
-import CommentBox from './CommentBox.vue'
+import CommentBox from '../components/CommentBox.vue'
 
 const CommentBoxPlugin = {
   install: function(Vue, options = {}) {

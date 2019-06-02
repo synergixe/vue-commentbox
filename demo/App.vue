@@ -9,6 +9,9 @@
  
 <template>
   <main class="board">
+    <post @mouseover="" :likes="">
+
+    </post>
     <comment-box
       :input-placeholder-text="placeHolderText"
       :context-author="'Dauda Adeboye'"
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import CommentBox from '@/src/index.js'
+import CommentBox from '../src/commentbox/index.js'
 
 export default {
     components: {

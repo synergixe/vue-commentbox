@@ -3,7 +3,7 @@
       [
         "@babel/preset-env",
         {
-          "useBuiltIns": "usage",
+          "useBuiltIns": false,
           "modules":false,
           "targets": {
                 "browsers":[
@@ -20,7 +20,7 @@
     "plugins": [
         "@babel/plugin-syntax-dynamic-import",
         "transform-vue-jsx", 
-        "transform-runtime",
+        "@babel/plugin-transform-runtime",
         "istanbul"
     ]
   }

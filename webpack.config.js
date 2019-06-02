@@ -6,23 +6,25 @@ const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
 const _env = process.env.NODE_ENV
+const isDev = _env === 'development'
 const isProd = _env === 'production'
 const isTest = _env === 'test'
 
 module.exports = {
 	mode: (_env === "test" ? "none" : _env),
 	entry:{
-		vuecommentbox : path.resolve(__dirname, 'src/index.js'),
-		app: path.resolve(__dirname, 'demo/index.js')
+		'vue-commentbox' : path.join(__dirname, 'src/commentbox/index.js')/*,
+		app: path.join(__dirname, 'demo/index.js')*/
 	},
 	output:{
-			path: path.resolve(__dirname, 'dist'),
-			libraryTarget: 'umd',
-			filename:"[name].js",
-			umdNamedDefine: true
+			path: path.join(__dirname, 'dist'),
+			//libraryTarget: 'umd',
+			//library:'VueCommentBox',
+			filename:"[name].js"
+			//umdNamedDefine: true
 	},
 	module:{
 		rules: [
@@ -32,10 +34,7 @@ module.exports = {
 			    loader: 'vue-loader',
 			    options: {
 					loaders: {
-						css: ExtractTextPlugin.extract({
-							use: 'css-loader',
-							fallback: 'vue-style-loader'
-						})
+						css: 'css-loader'
 					}
 			    }
 			},
@@ -49,9 +48,13 @@ module.exports = {
 				exclude: /node_modules/,
 				use:[
 					{
-						loader: 'css-loader',
-						options: {}
-					}
+						loader: MiniCSSExtractPlugin.loader,
+						options: {
+							hmr: isDev,
+							reloadAll: true
+						}
+					},
+					'css-loader'
 				]
 			},
 			{
@@ -81,9 +84,13 @@ module.exports = {
 	},
 	plugins:[
 		new VueLoaderPlugin(),
+		new MiniCSSExtractPlugin({
+			filename: '[name].css',
+			chunkFilename: '[id].css',
+		})/*,
 		new HtmlWebpackPlugin({
-			filename: path.join(__dirname, 'dist', 'index.html'),
-      		template: path.join(__dirname, 'demo', 'index.html'),
+			filename: path.join(__dirname, 'dist/index.html'),
+      		template: path.join(__dirname, 'demo/index.html'),
       		inject: true,
       		minify: isProd ? {
 				removeComments: true,
@@ -92,14 +99,10 @@ module.exports = {
 				// More options:
 				// https://github.com/kangax/html-minifier#options-quick-reference
 			} : false
-		})
+		})*/
 	],
 	optimization: {
-		splitChunks: {
-      	// Must be specified for HtmlWebpackPlugin to work correctly.
-      	// See: https://github.com/jantimon/html-webpack-plugin/issues/882
-      		chunks: 'all',
-    	}
+		
 	},
 	performance: {
 	  	hints: false
