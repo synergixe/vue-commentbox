@@ -9,7 +9,7 @@
  
 <template>
   <main class="board">
-    <post @mouseover="" :likes="">
+    <post :likes="" :text="">
 
     </post>
     <comment-box
@@ -24,10 +24,12 @@
 </template>
 
 <script>
+import PostBox from '../src/postbox/index.js'
 import CommentBox from '../src/commentbox/index.js'
 
 export default {
     components: {
+        PostBox,
         CommentBox
     },
     data: () => ({
