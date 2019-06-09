@@ -51,7 +51,7 @@
                       >
                         <div
                           id="comment-text-area-wrapper"
-                          v-editable-text
+                          v-editable-text="_set"
                           aria-describedby="commentbox-placeholder"
                           aria-expanded="false"
                           aria-haspopup="false"
@@ -219,32 +219,38 @@
     import CommentBoxIcon from "./CommentBoxIcon.vue" /* eslint-disable-line vue/no-unused-components */
 
     export default {
-        components: { CommentBoxIcon }, /* eslint-disable-line vue/no-unused-components */
+        components: { 'icon':CommentBoxIcon }, /* eslint-disable-line vue/no-unused-components */
         directives:{
             editableText: {
+                    isLiteral: false,
 
-                    _savedSelection: null, // Default Value
+                    isEmpty: false,
+                    
+                    twoWay: true,
 
-                    inserted(){
-                     
+                    inserted(el, binding, vnode){
                      
                     },
                      
-                    componentUpdated(){
+                    componentUpdated(el, binding, vnode){
                      
                     },
 
                     bind(el, binding, vnode, oldVnode) {
 
-                       var  self = this,
-                            el   = self.el,
+                      vnode.context.$nextTick(() => {
+
+                       var  self = el,
                             bd_el = el.parentNode,
+                            clear_btn = el.querySelector('#comment-clear'),
                             ESCAPE_KEY      = 27,
                             ENTER_KEY       = 13,
                             BACKSPACE_KEY    = 8,
                             DOWNARROW_KEY  = 40,
                             RIGHTARROW_KEY = 39,
                             attrToChange    = 'textContent';
+
+                        el._savedSelection = null;
 
                         // Make the content editable
                         /*if(('chrome' in window) 
@@ -258,7 +264,7 @@
                         self.onEsc = function(e) {
                             if (e.keyCode === ESCAPE_KEY) {
                                 el[attrToChange] = self.initialValue || ''
-                                self._set();
+                                binding.value(el);
                                 el.blur();
                             }
                         }
@@ -300,9 +306,9 @@
 
                         el.addEventListener("paste", self.onPaste);
 
-                        el.addEventListener('keyup', this.onEsc);
+                        el.addEventListener('keyup', self.onEsc);
                         
-                        el.addEventListener('blur', this.onBlur);
+                        el.addEventListener('blur', self.onBlur);
                         
                         self.onMouseIn = function(e){
                         
@@ -509,9 +515,11 @@
        
                         };
                         
-                        bd_el.addEventListener('mousedown', this.onMouseIn);
+                        if(bd_el){
+                          bd_el.addEventListener('mousedown', self.onMouseIn);
+                        }
 
-                        el.addEventListener('keydown', this.onKeys);
+                        el.addEventListener('keydown', self.onKeys);
 
                         // On focus, store the initial value so it can be reset on escape
                         self.onFocus = function(e) {
@@ -545,9 +553,9 @@
                              }
                         };
 
-                        el.addEventListener('focus', this.onFocus);
+                        el.addEventListener('focus', self.onFocus);
                         
-                        el.addEventListener('cut', this.onCut);
+                        el.addEventListener('cut', self.onCut);
 
                         self.clearClick = function(e){
                             console.log("cleared!");
@@ -564,8 +572,10 @@
                             wrapper.blur();
                         };
 
-                        el.querySelector('#comment-clear').addEventListener("click", self.clearClick); 
-
+                        if(clear_btn){
+                          clear_btn.addEventListener("click", self.clearClick); 
+                        }
+                        
                         self.onInput = function (e) {
                         
                             console.log("inserted!"); /* e.isTrusted */
@@ -615,9 +625,9 @@
                             // therefore we have to record cursor position (selection)
                             // so that after vm.$set changes the input
                             // value we can put the cursor back at where it is
-                            this._savedSelection = Helpers.saveSelection(el);
+                            el._savedSelection = Helpers.saveSelection(el);
 
-                            self._set();
+                            binding.value(el);
                         }
 
                         if(!document.documentMode
@@ -628,38 +638,36 @@
                         }
                         
                         // FIXME: We don't support IE 9 so I never solved whatever issues exist with backspace / del / cut
+                      })
                     },
 
-                    _set: function () {
-                        this.vm.$set(this.key, this.el[attrToChange])
-                    },
-
-                    update: function (value, init) {
+                    update: function (el, binding, vnode) {
                         
+                        var attrToChange = 'textContent';
+
                         // sync back inline value if initial data is undefined
-                        if (init && value === undefined) {
-                            return this._set()
+                        if (vnode && vnode.key === undefined) {
+                            return binding.value(el);
                         }
 
-                        this.el[attrToChange] =  typeof value !== 'string' ? '' : value
+                        el[attrToChange] =  typeof vnode.key !== 'string' ? '' : vnode.key
 
                         // Since updates are async, we need to reset the position of the cursor after it fires
                         // v-model tries to do this with setTimeout(cb, 0) but if there's a filter and you type
                         // too fast, there's a race condition where the timeout can fire before
                         // update, moving the cursor back to the front. Having this here guarantees the cursor
                         // is reset after update.
-                        // See the comment in self.set for additional context
-                        if (this._savedSelection) {
-                            Helpers.restoreSelection(this.el, this._savedSelection)
+                        // See the comment in `_set(el)` for additional context
+                        if (el._savedSelection) {
+                            Helpers.restoreSelection(el, el._savedSelection)
                         }
                     },
 
-                    unbind: function () {
-                        var el = this.el;
-                        el.removeEventListener('input', this.onInput)
-                        el.removeEventListener('keyup', this.onEsc)
-                        el.removeEventListener('keydown', this.onEnter)
-                        el.removeEventListener('focus', this.onFocus)
+                    unbind: function (el) {
+                        el.removeEventListener('input', el.onInput)
+                        el.removeEventListener('keyup', el.onEsc)
+                        el.removeEventListener('keydown', el.onEnter)
+                        el.removeEventListener('focus', el.onFocus)
                     }
             }
         },
@@ -677,8 +685,15 @@
             }
         },
         methods: {
+            _set: function (el) {
+                var attrToChange = 'textContent';
+
+                this.vm.$set(this.key, el[attrToChange])
+            },
             // Handle OK button click
             onClick(event) {
+
+                event.preventDefault()
 
                 var _text = this.text.trim()
 
@@ -720,7 +735,7 @@
     };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 
 #comment-border .comment-text-area-wrapper {
   display: block;

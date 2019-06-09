@@ -9,9 +9,10 @@
  
 <template>
   <main class="board">
-    <post :likes="" :text="">
-
-    </post>
+    <post 
+      :likes="23"
+      :text="'Hi...'"
+    />
     <comment-box
       :input-placeholder-text="placeHolderText"
       :context-author="'Dauda Adeboye'"
@@ -24,13 +25,13 @@
 </template>
 
 <script>
-import PostBox from '../src/postbox/index.js'
+import PostBox from './PostBox.vue'
 import CommentBox from '../src/commentbox/index.js'
 
 export default {
     components: {
-        PostBox,
-        CommentBox
+        'post':PostBox,
+        'comment-box':CommentBox
     },
     data: () => ({
       placeHolderText:'Post Something',

@@ -114,11 +114,13 @@ Helpers = {
 	 * @See: https://gist.github.com/mathisonian/7885295
 	 */
 	doesSupportEmoji(){
-		let context, smiley;
-		if(!document.createElement('canvas').getContext) return false;
+		let context, smiley, _canvas;
+
+		_canvas = document.createElement('canvas')
+		if(!_canvas || !_canvas.getContext) return false;
 		context = document.createElement('canvas').getContext('2d');
 		if(typeof context.fillText != 'function') return false;
-		smiley = smile = String.fromCodePoint(EMOJI_DATA['smile'].code); // String.fromCharCode(55357) + String.fromCharCode(56835)
+		smiley = String.fromCodePoint(EMOJI_DATA['smile'].code); // String.fromCharCode(55357) + String.fromCharCode(56835)
 		
 		context.textBaseline = "top";
 		context.font = "32px Arial";

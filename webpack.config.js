@@ -16,14 +16,14 @@ const isTest = _env === 'test'
 module.exports = {
 	mode: (_env === "test" ? "none" : _env),
 	entry:{
-		'vue-commentbox' : path.join(__dirname, 'src/commentbox/index.js')/*,
+		'vue-commentbox' : path.join(__dirname, 'src/index.js')/*,
 		app: path.join(__dirname, 'demo/index.js')*/
 	},
 	output:{
 			path: path.join(__dirname, 'dist'),
-			//libraryTarget: 'umd',
-			//library:'VueCommentBox',
-			filename:"[name].js"
+			libraryTarget: 'umd',
+			library:'VueCommentBox'/*,*/
+			// filename:"[name].js",
 			//umdNamedDefine: true
 	},
 	module:{
@@ -48,13 +48,15 @@ module.exports = {
 				exclude: /node_modules/,
 				use:[
 					{
+						loader:'css-loader'
+					}/*,
+					{
 						loader: MiniCSSExtractPlugin.loader,
 						options: {
 							hmr: isDev,
 							reloadAll: true
 						}
-					},
-					'css-loader'
+					}*/
 				]
 			},
 			{

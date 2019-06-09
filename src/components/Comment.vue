@@ -43,7 +43,7 @@
     };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   .comment-list-item {
     padding: 10px 0;
     min-height:32px;

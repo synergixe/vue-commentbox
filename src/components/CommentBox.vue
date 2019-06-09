@@ -90,12 +90,12 @@
 
     export default {
         name: 'CommentBox',
-        components: { CommentList, CommentInput },
+        components: { 'comment-list':CommentList, 'comment-input':CommentInput },
         props:{
           iconFillColor:{
                 type:String,
                 required:true,
-                default:'aaeced'
+                default:'#aaeced'
           },
           inputPlaceholderText:{
                 type:String,
@@ -172,7 +172,7 @@
 
                         new_comment.posted = true
 
-                        if(data.bodySafe === true)
+                        if(data.bodySafe === true){
                             new_comment.text = this.currentCommentText
                         }
 
@@ -202,9 +202,10 @@
 
             }
         }
+    }
 </script>
 
-<style>
+<style lang="css">
 
 @import 'https://afeld.github.io/emoji-css/emoji.css';
 
@@ -560,6 +561,4 @@ html .variable-width-box{
     margin: 0;
     padding-left: 8px;
 }
-
-
 </style>

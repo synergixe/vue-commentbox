@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 svg {
   display: inline-block;
   overflow: hidden;

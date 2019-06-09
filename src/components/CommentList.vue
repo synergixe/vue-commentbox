@@ -31,21 +31,21 @@
     import Comment from "./Comment.vue";
     
     export default {
-        components: { Comment },
+        components: { 'comment':Comment },
         props: {
             comments:Array
         },
         mounted(){
 
             if(!Helpers.doesSupportEmoji()){
-	            Helpers.replaceAllEmojiInAncestor(this.$ref.clist);
+	            Helpers.replaceAllEmojiInAncestor(this.$refs.clist);
             }
 
         }
     };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .comment-list .comment-body-container .comment-body-input {
       border-color: transparent !important;
 }

@@ -1,0 +1,485 @@
+@import url(https://afeld.github.io/emoji-css/emoji.css);
+
+.comment-list-item[data-v-0c6308fa] {
+  padding: 10px 0;
+  min-height:32px;
+}
+.comment-list-item a[data-attachement-download="true"][data-v-0c6308fa]{
+  padding:29px 18px;
+  background-color:#444444;
+  color:#ffffff;
+}
+.comment-list-item [data-attachement-download="true"] > .download-icon[data-v-0c6308fa] {
+  padding:4px;
+  font-size:11px;
+}
+.comment-list-item > .comment-box-post[data-v-0c6308fa] {
+  width: 100% !important;
+}
+.comment-intermediate[data-v-0c6308fa] {
+  opacity:0.34 !important;
+  pointer-events:none !important;
+  cursor: progress !important;
+}
+
+
+.comment-list .comment-body-container .comment-body-input[data-v-810a4d7a] {
+      border-color: transparent !important;
+}
+
+
+svg[data-v-0920cf94] {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+}
+svg.icon[data-v-0920cf94] {
+    height: 1em;
+    width: 1em;
+    fill: transparent;
+}
+
+
+
+#comment-border .comment-text-area-wrapper[data-v-6a39d586] {
+  display: block;
+  outline: none;
+  outline: 0;
+  /*overflow-y:auto;*/
+  /*tab-size:4;*/
+  /*-moz-tab-size:4;*/
+  text-align:left;
+  /*word-wrap: break-word;*/
+  /*white-space: -moz-pre-wrap;  Firefox 1.0-2.0 */
+  /*white-space: pre-wrap;      Modern browsers */
+  /*white-space: pre-line;*/
+  width:100%;
+}
+
+/*#comment-text-area-cursor {
+   display:inline-block;
+   width:100%;
+}*/
+#comment-text-area-cursor[data-v-6a39d586]:empty:before {
+  content: "\200B";
+  display: inline;
+}
+#comment-text-area-mention-box[data-v-6a39d586] {
+  z-index:5;
+  width:190px;
+  min-height:1px;
+  padding:0;
+  left:0;
+  top:16px;
+}
+#comment-text-area-strip[data-v-6a39d586] {
+  overflow:visible;
+  font-family:monospace;
+  font-variant-ligatures: none;
+  -webkit-user-select: text;
+  -moz-user-select:-moz-text;
+  -moz-user-select:text;
+  ms-user-select:text;
+  user-select:text;
+}
+.comment-taskbar[data-v-6a39d586] { /* comment-taskbar */
+  border:1px solid #999999;
+  border-radius:3px;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  margin-top:10px;
+  behavior:url('https://cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc');
+}
+.comment-box-wrapper .comment-clear[data-v-6a39d586] {
+  padding:7px;
+  z-index:5;
+}
+.comment-taskbar .comment-icon[data-v-6a39d586] {
+  padding:13px;
+  margin-left:3px;
+  border-left:1px solid #dddddd;
+  top:3px;
+}
+
+/*.comment-taskbar .comment-icon-file {
+
+}
+
+.comment-taskbar .comment-icon-link {
+
+}
+
+.comment-taskbar .comment-icon-emoji {
+
+}*/
+.comment-taskbar .comment-button[data-v-6a39d586] {
+  border-left:1px solid #999999;
+  width:45px;
+}
+.comment-taskbar .comment-button .comment-button-text[data-v-6a39d586] {
+  width:100%;
+  padding:7px 0;
+}
+.comment-row .comment-input-control-placeholder[data-v-6a39d586] { 
+    color: #90949c;
+    z-index: 0;
+    font-family:Arial;font-size:13px;
+}
+.comment-row .comment-image-box[data-v-6a39d586] { 
+   margin:0;
+}
+.comment-body-input-context[data-v-6a39d586] {
+    background: #ffffff;
+    border: 1px solid #bdc7d8;
+    box-sizing: border-box;
+    cursor: text;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    padding: 3px;
+}
+.comment-form .comment-box-sticker-enabled .block-box .comment-body-input-control[data-v-6a39d586] {
+    padding-right: 57px;
+}
+.comment-box-wrapper .block-box .comment-body-input-control[data-v-6a39d586] {
+    padding-right: 29px;
+}
+.comment-box-wrapper .comment-text-area-curosr a[class^="link"][data-v-6a39d586]{
+    cursor: default;
+    text-decoration: underline;
+}
+.comment-taskbar a[href^="javascript:void(0)"][data-v-6a39d586],
+.comment-taskbar a[data-tooltip|="hover"][data-v-6a39d586] {
+    color: #365899;
+    cursor: pointer;
+    text-decoration: none;
+}
+.comment-body-container .comment-body-input[data-v-6a39d586] {
+    font-size: 12px;
+    line-height: 16px;
+    padding-left: 5px;
+}
+.comment-body-box .normalize-height[data-v-6a39d586] {
+    min-height:1px;
+    line-height:0.95;
+}
+.comment-body-box .comment-text-block[data-v-6a39d586] {
+  padding-right:40px;
+  font-family:Arial;
+  font-size:13px;
+  margin-top:1px;
+  color:#777777;
+}
+.comment-body-box .comment-body-container .comment-body-input[data-v-6a39d586] {
+    border-color: #dddfe2;
+    min-height: 32px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
+iframe[name="comment-box-sink"][data-v-6a39d586] {
+    left:-9999px;
+    top:0;
+}
+section[role="dropup-menu"] span[role="arrow"][data-v-6a39d586] {
+    /* triangle CSS */
+}
+section[role="dropup-menu"][data-v-6a39d586] {
+    z-index:300;
+    width:120px;
+    height:180px;
+    background-color:white;
+}
+
+
+.relative{
+   position:relative;
+}
+.absolute{
+  position:absolute;
+}
+.fixed {
+  position:fixed;
+}
+.snap-top-right{
+   left:auto;
+   bottom:auto; 
+   top:0;
+   right:0;
+}
+.snap-top-left{
+   right:auto;
+   bottom:auto; 
+   top:0;
+   left:0;
+}
+.snap-off{
+   right:auto;
+   bottom:auto;
+   top:-99999px;
+   left:-99999px;
+}
+.snap-bottom-left{
+    top:auto;
+    right:auto;
+    bottom:0;
+    left:0;
+}
+[hidden],
+.hidden {
+  display: none !important;
+}
+.scrollable-x{
+   overflow: auto; /* disbale all prior settings */
+   overflow-y: hidden;
+   -ms-overflow-y: hidden; /* IE8 */
+}
+.scrollable-y{
+   overflow: auto; /* disbale all prior settings */
+   overflow-x: hidden;
+   -ms-overflow-x: hidden; /* IE8 */
+}
+.not-scrollable{
+   overflow: hidden; /* all browsers */
+   overflow-x: hidden; /* all except IE */
+   -ms-overflow-x: hidden; /* IE7,8 */
+   overflow-y: hidden;
+   -ms-overflow-y: hidden; /* IE7,8 */
+   -ms-overflow-style: none; /* IE10+ */
+}
+.auto-scrollable{
+   overflow: auto; /* all browsers */
+   overflow-x: auto; /* all except IE */
+   -ms-overflow-x: auto; /* IE7,8 */
+   overflow-y: auto;
+   -ms-overflow-y: auto; /* IE7,8 */
+   -ms-overflow-style: none; /* IE10+ */
+}
+.scrollable{
+   overflow:auto;
+   position:relative;
+   /* apply only to IE7 and less - star hack! */
+   *padding-bottom: 1.3em;
+}
+.unselectable { /* mimicks the `unselectable` proprietary attribute as in Internat Explorer */
+  -webkit-user-select:none;
+  -moz-user-select:-moz-none;
+  -moz-user-select:none;
+  ms-user-select: none;
+  user-select: none;
+}
+
+/* oldOpera/oldIE will implement "unselectable" class using JavaScript only */
+.v-align-center{
+    vertical-align:middle;
+}
+.v-align-top{
+    vertical-align:top;
+}
+.block-box{
+      display:block;
+      height:auto !important;
+}
+
+/* Firefox (FF3-4) has a different way of setting "inline-block" behaviour on all DOM elements */
+.line-block-box,
+.line-inline-box{
+    display:-moz-inline-stack;
+    display:-moz-inline-box;
+    display:inline-block;
+}
+
+/* Because IE 6/7/8 do not set "inline-block" on block-level DOM elements */
+*:first-child+html .line-block-box,
+* html .line-block-box{ 
+      *display:inline;
+      *zoom:1; /* trigger hasLayout */
+}
+.invisible {   
+    visibility: hidden;
+}
+.pull-left {
+    float: left !important;
+}
+.pull-right {
+    float: right !important;
+}
+.left-float {
+    float: left;
+}
+.right-float {
+    float: right;
+}
+.thumb-box {
+    height: 50px;
+    width: 50px;
+}
+.thumb-box-small { 
+    height: 32px;
+    width: 32px;
+}
+.icon-box{
+    height: 15px;
+    width: 15px;
+}
+.screened { 
+    left: -99999px;
+    opacity: 0;
+    position: absolute;
+}
+.icon-box-small{
+  height: 11px; 
+  width: 11px;
+}
+.comment-box-wrapper ol li,
+.comment-box-wrapper ul li {
+    list-style-type: none;
+    margin: 0;
+}
+.comment-box-wrapper ol,
+.comment-box-wrapper ul{
+    margin: 0;
+    padding: 0;
+}
+.margin-l5 {
+    margin-left: 5px;
+}
+.margin-l6 {
+    margin-left: 6px;
+}
+.margin-l7 {
+    margin-left: 7px;
+}
+.margin-l8 {
+    margin-left: 8px;
+}
+.margin-r5 {
+    margin-right: 5px;
+}
+.margin-r6 {
+    margin-right: 6px;
+}
+.margin-r7 {
+    margin-right: 7px;
+}
+.margin-r8 {
+    margin-right: 8px;
+}
+.margin-n-r12 {
+   margin-right: -12px;
+}
+.margin-n-r10 {
+   margin-right: -10px;
+}
+.low-light {
+  color: #90949c;
+}
+.lower {
+    text-transform:lowercase;
+}
+.upper {
+    text-transform:uppercase;
+}
+.capital {
+    text-transform:capitalize;
+}
+.text-emphasis {
+  font-weight:bold;
+}
+.tablet {
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    -o-border-radius:3px;
+    border-radius:3px;
+   -khtml-border-radius:3px;
+}
+.pill {   
+   border-radius:4px;
+   -moz-border-radius:4px;
+   -webkit-border-radius:4px;
+   -o-border-radius:4px;
+   -khtml-border-radius:4px;
+}
+.ie-set .tablet,
+.ie-set  .pill {
+    position:relative;
+    behavior:url('https://cdn.jsdelivr.net/css3pie/2.0b1/PIE.htc');
+}
+.pill .btn.last:last-child {
+    border:none;
+}
+a.button,
+button.button,
+input[type='button'].button,
+input[type='submit'].button{ /* can be used for <a> <button> <span> */
+line-height:1.42857143;
+text-align:center;
+white-space: nowrap;
+vertical-align: middle;
+-ms-touch-action: manipulation;
+    touch-action: manipulation;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+    user-select: none;
+background:transparent;
+cursor:pointer;
+color:transparent;
+font-weight:normal;
+font-style:normal;
+font-variant:normal;
+letter-spacing:normal;
+height:auto;
+padding:8px 6px;
+font-size:16px;
+border-style:solid;
+border-width:1px;
+text-decoration:none;
+}
+button.button,
+input[type='button'].button,
+input[type='submit'].button{
+-pie-track-hover:false;
+-pie-track-active:false;
+}
+html .variable-width-box{ 
+    overflow: hidden !important;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+.comment-box {
+    width:auto !important;
+    min-height:220px;
+    height:inherit;
+    *height:250px;
+    margin:0;
+    display:block !important;
+}
+.comment-box-wrapper img {
+    border:0;
+}
+.comment-box-wrapper input {
+  outline:0;
+  outline: none;
+}
+.comment-list-row,
+.comment-row { 
+    background-color: #f5f5f5; /*#e9ebee;*/
+    margin-top: 1px;
+    padding: 10px;
+    word-wrap: break-word;
+}
+.comment-box .comment-body-box { 
+    margin: 0;
+    padding-left: 8px;
+}
+
+
+
