@@ -15,7 +15,7 @@ before_script:
   - npm install -g @vue/cli
 
 after_script: 
-  - npm run test
+  - npm run lint && npm run test && npm run build
 
 notifications:
   email: 
