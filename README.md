@@ -1,4 +1,5 @@
 # vue-commentbox
+[![Build Status](https://travis-ci.org/synergixe/vue-commentbox.svg?branch=master)](https://travis-ci.org/synergixe/vue-commentbox)
 
 An elegant and stylable comment box for VueJS web applications
 
