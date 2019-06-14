@@ -1,4 +1,6 @@
 # vue-commentbox
+
+
 [![Build Status](https://travis-ci.org/synergixe/vue-commentbox.svg?branch=master)](https://travis-ci.org/synergixe/vue-commentbox)
 
 An elegant and stylable comment box for VueJS web applications
@@ -23,7 +25,7 @@ yarn add vue-commentbox
 
 ## Caveats
 
-- This package provides a polyfill for **FormDtata** so the comment can be submitted with file attachments, you MUST also include [Polyfill library](https://polyfill.io) to enable the code work on older browsers like IE 9/Opera 11
+- This package provides a polyfill for **FormData** so the comment can be submitted with file attachments, you MUST also include [Polyfill library](https://polyfill.io) to enable the code work on older browsers like IE 9/Opera 11
 - Due to some bugs related to _contenteditable_ which have not yet been fixed, IE 9-11 and Opera 10-14 work partially 
 
 ## Importing
@@ -59,10 +61,10 @@ new Vue({
 		}
 	},
 	methods:{
-      beforeSend:function(){
-        console.log("about to send comment to server...")
-      }
-    },
+		beforeSend:function(){
+			console.log("about to send comment to server...")
+		}
+	},
 	computed:{
 		actionHref:function(){
 		

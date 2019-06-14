@@ -3,6 +3,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import { CommentBox } from '../src/index'
 // import CommentBox from '../src/components/CommentBox.vue'
+import sinon from 'sinon'
 
 let wrapper = null
 
@@ -80,14 +81,16 @@ describe('CommentBox.vue', function(){
           })
 
         const btn = wrapper.find('#send')
+        const spy = sinon.spy()
 
         const mockEvent = {
-            preventDefault: function() {}
+            preventDefault: spy
         };
 
         btn.trigger('click', mockEvent)
 
-        // expect(mockEvent.preventDefault).toHaveBeenCalled();
+        //spy.should.have.been.called()
+        //expect(mockEvent.preventDefault).toHaveBeenCalled();
         expect(wrapper.vm.currentCommentText).toBe('')
     })
 })
