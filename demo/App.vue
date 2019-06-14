@@ -11,9 +11,10 @@
   <main class="board">
     <post 
       :likes="23"
-      :text="'Hi...'"
+      :text="'Hi... What\'s happening guys ?'"
     />
     <comment-box
+      :comments="comments"
       :input-placeholder-text="placeHolderText"
       :context-author="'Dauda Adeboye'"
       :context-avatar-thumb="thumbImage"
@@ -26,7 +27,7 @@
 
 <script>
 import PostBox from './PostBox.vue'
-import CommentBox from '../src/commentbox/index.js'
+import { CommentBox } from '../src/index.js'
 
 export default {
     components: {
@@ -34,14 +35,10 @@ export default {
         'comment-box':CommentBox
     },
     data: () => ({
+      comments:[],
       placeHolderText:'Post Something',
       xhr:true
     }),
-    method:{
-      beforeSend:function(){
-	     
-      }
-    },
     computed:{
       actionHref:function(){
       
@@ -59,6 +56,11 @@ export default {
       usernamesAvailable:function(){
       
         return true;
+      }
+    },
+    methods:{
+      beforeSend:function(){
+        console.log("about to send comment to server...")
       }
     }
 }

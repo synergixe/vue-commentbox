@@ -22,17 +22,20 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode development --open",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode development --open",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --webpack-config webpack.config.js --require tests/setup.js tests/**/*.spec.js",
     "lint:src": "eslint --ext .js,.vue src/",
     "lint:demo": "eslint --ext .js,.vue demo/",
     "lint:tests": "eslint --ext .js tests/",
     "lint": "npm run lint:tests && npm run lint:src && npm run lint:demo",
-    "lint:fix:all": "eslint --ignore-pattern '/dist/' --fix .eslintrc.js webpack.config.js src/**/*.js src/**/*.vue tests/*.js demo/*.js demo/*.vue",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules"
+    "lint:fix:all": "eslint --ignore-pattern \"!.eslintrc.js\" --fix .eslintrc.js webpack.config.js src/**/*.js src/**/*.vue tests/*.js demo/*.js demo/*.vue",
+    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js --progress --hide-modules",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules",
+    "build":"npm run build:dev && npm run build:prod"
   },
   "main": "./dist/vue-commentbox.js",
-  "browser": "./dist/vue-commentbox.js",
+  "unpkg": "./dist/vue-commentbox.min.js",
+  "browser": "./dist/vue-commentbox.min.js",
   "module": "./src/index.js",
   "dependencies": {
     "cuid": "^2.1.6",
