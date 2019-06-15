@@ -11,7 +11,8 @@
   <main class="board">
     <post 
       :likes="23"
-      :author="'Dauda Adeboye'"
+      :author="'https://via.placeholder.com/50'"
+      :author-name="'Dauda Adeboye'"
       :text="'Hi... What\'s happening guys ?'"
     />
     <comment-box
