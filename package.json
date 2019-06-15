@@ -3,11 +3,10 @@
   "description": "An elegant and stylable comment box for VueJS web applications",
   "version": "0.0.2",
   "files": [
-    "demo/*",
-    "dist/*",
-    "src/*",
-    "*.json",
-    "*.js"
+    "demo",
+    "dist",
+    "src",
+    "*.json"
   ],
   "homepage": "https://github.com/synergixe/vue-commentbox",
   "bugs": "https://github.com/synergixe/vue-commentbox/issues",

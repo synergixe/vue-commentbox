@@ -1,8 +1,6 @@
 # vue-commentbox
 
-[![npm version](https://badge.fury.io/js/vue-commentbox.svg)](https://badge.fury.io/js/vue-commentbox)
-
-[![Build Status](https://travis-ci.org/synergixe/vue-commentbox.svg?branch=master)](https://travis-ci.org/synergixe/vue-commentbox)
+[![npm version](https://badge.fury.io/js/vue-commentbox.svg)](https://badge.fury.io/js/vue-commentbox)  [![Build Status](https://travis-ci.org/synergixe/vue-commentbox.svg?branch=master)](https://travis-ci.org/synergixe/vue-commentbox)
 
 An elegant and stylable comment box for VueJS web applications
 
@@ -46,48 +44,55 @@ Vue.use(CommentBoxPlugin);
 
 ```js
 
-new Vue({
-	el:"#app",
-	template:`<main class="page">
-		<comment-box :input-placeholder-text="placeHolderText" :comments="comments" :context-author="'Dauda Adeboye'" :context-avatar-thumb="thumbImage" :box-action="actionHref" use-xhr="xhr" v-on:beforesend="beforeSend">
-   		
-   		</comment-box>
-	</main>`,
-	components:{ 'comment-box':CommentBox },
-	data:function(){
+	new Vue({
+		el:"#app",
+		template:`
+		<main class="page">
+			<comment-box 
+			:input-placeholder-text="placeHolderText"
+			:comments="comments"
+			:context-author="'Dauda Adeboye'"
+			:context-avatar-thumb="thumbImage"
+			:box-action="actionHref"
+			:use-xhr="xhr" 
+			v-on:beforesend="beforeSend">
+			/>
+		</main>`,
+		components:{ 'comment-box':CommentBox },
+		data:function(){
 
-		return {
-			comments:[],
-			placeHolderText:'Post Something',
-			xhr:true,
-			iconFillColor:'#eeddac'
-		}
-	},
-	methods:{
-		beforeSend:function(){
-			console.log("about to send comment to server...")
-		}
-	},
-	computed:{
-		actionHref:function(){
-		
-			let origin = window.location.origin;
-		
-			return `${origin}/store/comment`;
+			return {
+				comments:[],
+				placeHolderText:'Post Something',
+				xhr:true,
+				iconFillColor:'#eeddac'
+			}
 		},
-		thumbImage:function(){
-		
-			let scheme = window.location.protocol;
+		methods:{
+			beforeSend:function(){
+				console.log("about to send comment to server...")
+			}
+		},
+		computed:{
+			actionHref:function(){
 			
-			return `${scheme}//assets-cdn.store.com.ng/images/png/passport.jpg`
-		
-		},
-		usernamesAvailable:function(){
-		
-			return true;
+				let origin = window.location.origin;
+			
+				return `${origin}/store/comment`;
+			},
+			thumbImage:function(){
+			
+				let scheme = window.location.protocol;
+				
+				return `${scheme}//assets-cdn.store.com.ng/images/png/passport.jpg`
+			
+			},
+			usernamesAvailable:function(){
+			
+				return true;
+			}
 		}
-	}
-});
+	});
 
 ```
 
