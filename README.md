@@ -62,7 +62,10 @@ Vue.use(CommentBoxPlugin);
 		data:function(){
 
 			return {
-				comments:[],
+				comments:[
+					{text: "This is a comment!"}, 
+					{text: "This is another comment"}
+				],
 				placeHolderText:'Post Something',
 				xhr:true,
 				iconFillColor:'#eeddac'
