@@ -2,9 +2,9 @@
  * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
  *
  * @author: https://twitter.com/isocroft
- * @version:
+ * @version: 0.0.2
  * @desc:
- * @created: 
+ * @created: 04/03/2019
  */
  
 <template>
@@ -68,12 +68,12 @@ export default {
 }
 </script>
 
-<style scoped>
-.board{
-  width: auto !important;
-  display: block;
-  border:none;
-  margin:0;
-  padding:20px;
-}
+<style lang="css" scoped>
+  main.board {
+    width: auto !important;
+    display: block;
+    border:3px solid #545454;
+    margin:0;
+    padding:20px;
+  }
 </style>

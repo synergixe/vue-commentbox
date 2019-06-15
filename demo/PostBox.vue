@@ -2,28 +2,43 @@
  * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
  *
  * @author: https://twitter.com/isocroft
- * @version:
+ * @version: 0.0.2
  * @desc:
- * @created: 
+ * @created: 13/06/2019
  */
 
 <template>
   <article class="postbox">
     <div class="top-content float-layout">
-        <div class="left-fixed">
-            <img :src="author" :alt="authorName" class="picture" width="40" height="40">
-        </div>
-        <div class="right-fluid">
-            <span v-text="text" class="post">
-            </span>
-        </div>
+      <div class="left-fixed">
+        <img
+          :src="author"
+          :alt="authorName"
+          class="picture"
+          width="40"
+          height="40"
+        >
+      </div>
+      <div class="right-fluid">
+        <span
+          class="post"
+          v-text="text"
+        />
+      </div>
     </div>
     <div class="bottom-content float-layout">
-        <div class="right-fixed">
-            <a href="#" class="button-icon like" :title="likes"></a>
-            <!--<a href="#" class="button-icon menu"></a>-->
-            <a href="#" class="button-icon fave"></a>
-        </div>
+      <div class="right-fixed">
+        <a
+          href="#"
+          class="button-icon like"
+          :title="likes"
+        />
+        <!--<a href="#" class="button-icon menu"></a>-->
+        <a
+          href="#"
+          class="button-icon fave"
+        />
+      </div>
     </div>
   </article>
 </template>
@@ -78,6 +93,15 @@
         display: inline-block;
         padding:2px 5px;
         position: relative;
+        text-align:center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+            touch-action: manipulation;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
         color: transparent;
         border: 1px solid #1f1f1f;
         user-select: none;
@@ -94,6 +118,11 @@
        margin-left: 8px;
     }
 
+    a.button-icon:hover {
+        background-color: #343434;
+        border-color:#131313;
+    }
+
     a.fave:before {
         content: "\2605";
         display: inline-block;
@@ -108,13 +137,13 @@
     a.like:after {
         content: "+" attr(title);
         display: inline-block;
-        color: red;
+        color: #424242;
         position: absolute;
         padding: 2px;
         font-size:small;
-            top: -73%;
-    right: auto;
-    left: 50%;
+        top: -73%;
+        right: auto;
+        left: 50%;
     }
 
     a.like:before {
@@ -129,7 +158,7 @@
     }
 
     a.menu:before {
-        content: "\2026"; /* ellipsis */
+        content: "\22EE"; /* ellipsis */
         display: inline-block;
         position: relative;
         color: #343434;
@@ -137,6 +166,10 @@
         right: auto;
         top: 50%;
         text-align: center;
+    }
+
+    a[class*="button-icon"]:hover:before {  
+        color: #ffffff !important;
     }
 
     .post {
@@ -178,7 +211,7 @@
     }
 
     article.postbox {
-        background-color: #f1f1f1;
+        background-color: #e9ebee;
         display: block;
         width:auto !important;
         padding:5px 15px;
@@ -193,6 +226,6 @@
     }
 
     div.top-content {
-        border-bottom:1px solid #e3e3e3;
+        border-bottom:1px solid #d0d0d0;
     }
 </style>

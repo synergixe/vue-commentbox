@@ -104,3 +104,5 @@ new Vue({
 MIT
 
 ## Contributing
+
+We are pleased to have you collaborate and contribute to **vue-commentbox** vue package. Also, report issues with the package to [synergixe.org@gmail.com](mailto:synergixe.org@gmail.com)  Please see our _CONTRIBUTION GUIDELINES_ [here](https://github.com/synergixe/vue-commentbox/blob/master/CONTRIBUTING.md) for more information

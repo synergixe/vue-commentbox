@@ -3,6 +3,7 @@
 # instructions
 .github
 node_modules
+CONTRIBUTING.md
 .DS_Store
 out
 
@@ -16,11 +17,17 @@ coverage
 .travis.yml
 .jenkins.yml
 .codeclimate.yml
+webpack.config.js
 
 #linters
 .jscsrc
 .jshintrc
-.eslintrc*
+.eslintrc
+.eslintrc.js
+
+# ignore files
+.gitignore
+.eslintignore
 
 # others
 demo

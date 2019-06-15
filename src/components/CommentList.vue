@@ -2,9 +2,9 @@
  * @copyright: Copyright (c) 2018 Oparand Ltd - Synergixe
  *
  * @author: https://twitter.com/isocroft
- * @version:
+ * @version: 0.0.2
  * @desc:
- * @created: 
+ * @created: 13/05/2018
  */
  
 <template>
