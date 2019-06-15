@@ -111,3 +111,21 @@ MIT
 ## Contributing
 
 We are pleased to have you collaborate and contribute to **vue-commentbox** vue package. Also, report issues with the package to [synergixe.org@gmail.com](mailto:synergixe.org@gmail.com)  Please see our _CONTRIBUTION GUIDELINES_ [here](https://github.com/synergixe/vue-commentbox/blob/master/CONTRIBUTING.md) for more information
+
+## Building And Testing
+
+```bash
+
+	git clone https://github.com/synergixe/vue-commentbox.git
+
+	npm install
+
+	npm run lint:fix:all
+
+	npm run lint
+
+	npm run test
+
+	npm run build
+
+```
